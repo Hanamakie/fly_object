@@ -20,4 +20,33 @@ public class IndexController {
 		mv.setViewName("index");
 		return mv;
 	}
+	/**********************************************************************
+	*
+	* @fileName     IndexController.java
+	* @author		ChangEnYing
+	* @date		 	2019-11-23
+	* @version      V1.0.0
+	* @description  登陆控制器
+	**********************************************************************/
+	@RequestMapping(value="login")
+	public ModelAndView login(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/login");
+		return mv;
+	}
+	/**********************************************************************
+	*
+	* @fileName     IndexController.java
+	* @author		ChangEnYing
+	* @date		 	2019-11-23
+	* @version      V1.0.0
+	* @description  注册控制器
+	**********************************************************************/
+	@RequestMapping(value="reg")
+	public ModelAndView reg(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/reg");
+		return mv;
+	}
+	
 }

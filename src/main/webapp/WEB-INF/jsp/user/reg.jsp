@@ -19,8 +19,8 @@
 
 <div class="fly-header layui-bg-black">
   <div class="layui-container">
-    <a class="fly-logo" href="/">
-      <img src="../../res/images/logo.png" alt="layui">
+    <a class="fly-logo" href="${pageContext.request.contextPath }/">
+      <img src="${pageContext.request.contextPath }/res/images/logo.png" alt="layui">
     </a>
     <ul class="layui-nav fly-nav layui-hide-xs">
       <li class="layui-nav-item layui-this">
@@ -40,10 +40,10 @@
         <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
       </li>
       <li class="layui-nav-item">
-        <a href="user/login.html">登入</a>
+        <a href="${pageContext.request.contextPath }/login">登入</a>
       </li>
       <li class="layui-nav-item">
-        <a href="user/reg.html">注册</a>
+        <a href="${pageContext.request.contextPath }/reg">注册</a>
       </li>
       <li class="layui-nav-item layui-hide-xs">
         <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
