@@ -1,13 +1,31 @@
 package com.neuedu.domain;
 
+import java.io.IOException;
+
 public class Customer {
+	/**********************************************************************
+	*
+	* @fileName     Customer.java
+	* @author		ChangEnYing
+	* @date		 	2019-11-25
+	* @version      V1.0.0
+	 * @throws IOException 
+	* @description  客户类
+	**********************************************************************/
+	//id
 	private int id;
-	String username;
-	String password;
-	String nick_name;
-	String email;
-	int status;
-	int vip_level;
+	//用户名
+	private String username;
+	//密码
+	private String password;
+	//昵称
+	private String nick_name;
+	//邮箱
+	private String email;
+	//状态
+	private int status;
+	//会员等级
+	private String vip_level;
 	
 	public int getId() {
 		return id;
@@ -45,17 +63,19 @@ public class Customer {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public int getVip_level() {
+	public String getVip_level() {
 		return vip_level;
 	}
-	public void setVip_level(int vip_level) {
+	public void setVip_level(String vip_level) {
 		this.vip_level = vip_level;
 	}
-	
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", username=" + username + ", password=" + password + ", nick_name=" + nick_name
 				+ ", email=" + email + ", status=" + status + ", vip_level=" + vip_level + "]";
 	}
+	
+	
+	
 	
 }

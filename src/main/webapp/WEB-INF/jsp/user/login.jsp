@@ -67,15 +67,15 @@
           <div class="layui-form layui-form-pane">
             <form method="post">
               <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">邮箱</label>
+                <label for="L_email" class="layui-form-label">邮箱/账号</label>
                 <div class="layui-input-inline">
-                  <input type="text" id="L_email" name="email" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input type="text" id="email_username" name="email_username" required lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label">密码</label>
                 <div class="layui-input-inline">
-                  <input type="password" id="L_pass" name="pass" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input type="password" id="password" name="password" required lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
@@ -88,7 +88,8 @@
                 </div>
               </div>
               <div class="layui-form-item">
-                <button class="layui-btn" lay-filter="*" lay-submit>立即登录</button>
+                <!-- <button class="layui-btn" lay-filter="*" lay-submit>立即登录</button> -->
+               	<button type="button"class="layui-btn" onclick="loginin()">立即登录</button>
                 <span style="padding-left:20px;">
                   <a href="forget.html">忘记密码？</a>
                 </span>
@@ -115,23 +116,69 @@
   </p>
 </div>
 
-<script src="../../res/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath }/res/layui/layui.js"></script>
 <script>
 layui.cache.page = 'user';
 layui.cache.user = {
   username: '游客'
   ,uid: -1
-  ,avatar: '../../res/images/avatar/00.jpg'
+  ,avatar: '${pageContext.request.contextPath }/res/images/avatar/00.jpg'
   ,experience: 83
   ,sex: '男'
 };
 layui.config({
   version: "3.0.0"
-  ,base: '../../res/mods/'
+  ,base: '${pageContext.request.contextPath }/res/mods/'
 }).extend({
   fly: 'index'
 }).use('fly');
 </script>
-
+<script src="${pageContext.request.contextPath }/res/js/jquery-3.4.1.min.js"></script>
+<script>
+	function loginin(){
+		var email_username=$("#email_username").val();
+		var i= getlength(email_username);
+		var password=$("#password").val(); 
+		if(i != 1){
+			var email=email_username;
+			$.ajax({
+				url:"${pageContext.request.contextPath }/loginin",
+				type:"post",
+				data:{
+					email:email,
+					password:password
+				},success:function(s){
+					if(s=="success"){
+						window.location.href = "${pageContext.request.contextPath}/userindex";
+					}
+					if(s=="error"){
+						alert="账号或密码错误";
+					}
+				}
+			});
+		}else{
+			var username=email_username;
+			$.ajax({
+				url:"${pageContext.request.contextPath }/loginin",
+				type:"post",
+				data:{
+					username:username,
+					password:password
+				},success:function(s){
+					
+					if(s=="success"){
+						window.location.href ="${pageContext.request.contextPath}/userindex";
+					}else if(s=="error"){
+						alert="账号或密码错误";
+					}
+				}
+			});
+		}
+	}  
+	function getlength(s){
+		var a= s.split("@").length;
+		return a;
+	}
+</script>
 </body>
 </html>

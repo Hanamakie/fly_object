@@ -57,25 +57,25 @@
 <div class="layui-container fly-marginTop fly-user-main">
   <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
     <li class="layui-nav-item">
-      <a href="home.html">
+      <a href="${pageContext.request.contextPath }/home">
         <i class="layui-icon">&#xe609;</i>
         我的主页
       </a>
     </li>
     <li class="layui-nav-item">
-      <a href="index.html">
+      <a href="${pageContext.request.contextPath }/userindex">
         <i class="layui-icon">&#xe612;</i>
         用户中心
       </a>
     </li>
     <li class="layui-nav-item">
-      <a href="set.html">
+      <a href="${pageContext.request.contextPath }/set">
         <i class="layui-icon">&#xe620;</i>
         基本设置
       </a>
     </li>
     <li class="layui-nav-item layui-this">
-      <a href="message.html">
+      <a href="${pageContext.request.contextPath }/message">
         <i class="layui-icon">&#xe611;</i>
         我的消息
       </a>

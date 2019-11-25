@@ -59,10 +59,10 @@
   <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
   <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
   <h1>
-    贤心
+    ${customer.username }
     <i class="iconfont icon-nan"></i>
     <!-- <i class="iconfont icon-nv"></i>  -->
-    <i class="layui-badge fly-badge-vip">VIP3</i>
+    <i class="layui-badge fly-badge-vip">${customer.vip_level }</i>
     <!--
     <span style="color:#c00;">（管理员）</span>
     <span style="color:#5FB878;">（社区之光）</span>

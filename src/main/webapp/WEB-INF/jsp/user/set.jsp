@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="fly,layui,前端社区">
   <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
-  <%@include file="common/link.jsp" %>
+  <%@include file="../common/link.jsp" %>
 </head>
 <body>
 
@@ -58,25 +58,25 @@
 <div class="layui-container fly-marginTop fly-user-main">
   <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
     <li class="layui-nav-item">
-      <a href="home.html">
+      <a href="${pageContext.request.contextPath }/home">
         <i class="layui-icon">&#xe609;</i>
         我的主页
       </a>
     </li>
     <li class="layui-nav-item">
-      <a href="index.html">
+      <a href="${pageContext.request.contextPath }/userindex">
         <i class="layui-icon">&#xe612;</i>
         用户中心
       </a>
     </li>
     <li class="layui-nav-item layui-this">
-      <a href="set.html">
+      <a href="${pageContext.request.contextPath }/set">
         <i class="layui-icon">&#xe620;</i>
         基本设置
       </a>
     </li>
     <li class="layui-nav-item">
-      <a href="message.html">
+      <a href="${pageContext.request.contextPath }/message">
         <i class="layui-icon">&#xe611;</i>
         我的消息
       </a>

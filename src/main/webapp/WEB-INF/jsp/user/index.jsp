@@ -20,7 +20,7 @@
 <div class="fly-header layui-bg-black">
   <div class="layui-container">
     <a class="fly-logo" href="/">
-      <img src="../../res/images/logo.png" alt="layui">
+      <img src="${pageContext.request.contextPath }/res/images/logo.png" alt="layui">
     </a>
     <ul class="layui-nav fly-nav layui-hide-xs">
       <li class="layui-nav-item layui-this">
@@ -38,9 +38,9 @@
       <!-- 登入后的状态 -->
       <li class="layui-nav-item">
         <a class="fly-nav-avatar" href="javascript:;">
-          <cite class="layui-hide-xs">贤心</cite>
+          <cite class="layui-hide-xs">${customer.username }</cite>
           <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-          <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
+          <i class="layui-badge fly-badge-vip layui-hide-xs">${customer.vip_level }</i>
           <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
         </a>
         <dl class="layui-nav-child">
@@ -58,25 +58,25 @@
 <div class="layui-container fly-marginTop fly-user-main">
   <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
     <li class="layui-nav-item">
-      <a href="home.html">
+      <a href="${pageContext.request.contextPath }/home">
         <i class="layui-icon">&#xe609;</i>
         我的主页
       </a>
     </li>
     <li class="layui-nav-item layui-this">
-      <a href="index.html">
+      <a href="${pageContext.request.contextPath }/userindex">
         <i class="layui-icon">&#xe612;</i>
         用户中心
       </a>
     </li>
     <li class="layui-nav-item">
-      <a href="set.html">
+      <a href="${pageContext.request.contextPath }/set">
         <i class="layui-icon">&#xe620;</i>
         基本设置
       </a>
     </li>
     <li class="layui-nav-item">
-      <a href="message.html">
+      <a href="${pageContext.request.contextPath }/message">
         <i class="layui-icon">&#xe611;</i>
         我的消息
       </a>

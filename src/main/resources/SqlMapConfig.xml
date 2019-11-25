@@ -10,10 +10,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <typeAliases>
 	<!-- <typeAlias type="com.neuedu.domain.Emp" alias="emp"/> -->
 	<!-- 扫描包，为包中所有类型起一个别名 -->
-	<package name="com.neuedu.po"/>
+	<package name="com.neuedu.domain"/>
 </typeAliases>
-
-
 
 	
 </configuration>
