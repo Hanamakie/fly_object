@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 
+注意：使用mapper代理方法开发，namespace有特殊重要的作用
+-->
+<mapper namespace="com.neuedu.dao.CustomerMapper">
+	<!-- 登陆，通过账号和密码或者邮箱和密码查询用户  常恩瀛-->
+	<select id="getCustomer" parameterType="customer" resultType="customer">
+		select * from fly_customer c,fly_level l 
+		<where>
+			c.vip_level_id=l.id
+			<if test="username !=null">
+			and username=#{username}
+			</if>
+			<if test="email !=null">
+			and email=#{email}
+			</if>
+			<if test="password!=null">
+			and password=#{password}
+			</if>
+			and status = 1
+		</where>
+	</select>
+	
+	<!-- 注册功能：添加用户 -->
+	<insert id="addcustomer" parameterType="customer">
+		insert into fly_customer (username,password,nick_name,email) 
+		values (#{username},#{password},#{nick_name},#{email})
+	</insert>
+	<!-- 验证邮箱 -->
+	<select id="testemail" parameterType="string" resultType="customer">
+		select * from fly_customer where email = #{value}
+	</select>
+	
+	<!-- 验证用户名 -->
+	<select id="testusername" parameterType="string" resultType="customer">
+		select * from fly_customer where username = #{value}
+	</select>
+	
+	<!-- 头像上传,用于信息修改页面 set#avatar 高云龙 -->
+	<select id="uploadAvatar" parameterType="String" resultType="customer">
+		update fly_customer set avatar = #{avatar}
+		<!-- 需求：根据登录后获取session预留入口做绑定用户 -->
+<!-- 		<where>
+			id = #{id}
+		</where>   -->
+	</select>
+	
+	<!-- 修改密码 -->
+	<select id="changepassword" parameterType="String" resultType="customer">
+		select `password` from fly_customer where email= "gao@163.com"
+		<!-- update fly_customer set password = #{password} -->
+		<!-- 		<where>
+			id = #{id}
+		</where>   -->
+	</select>
+</mapper>
+
+
