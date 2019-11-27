@@ -24,20 +24,20 @@ public class AvatarController {
 	/**********************************************************************
 	*
 	* @fileName     IndexController.java
-	* @author		GaoYunLong
+	* @author		GaoYunLong1
 	* @date		 	2019-11-25
 	* @version      V1.0.0
-	* @description  头像上传控制器
+	* @description  澶村儚涓婁紶鎺у埗鍣�
 	**********************************************************************/
 	@RequestMapping(value="set/avatar")
 //	@InitBinder
 	public String avatar(MultipartFile avatar,Customer customer,HttpServletRequest request) {
-//		时间转换，防止上传头像时因data转换问题而包异常 ：根据需求增加
+//		鏃堕棿杞崲锛岄槻姝笂浼犲ご鍍忔椂鍥燿ata杞崲闂1鑰屽寘寮傚父 锛氭牴鎹渶姹傚鍔�
 //		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));,WebDataBinder binder
-		System.out.println("哈哈"+avatar);
+		System.out.println("鍝堝搱"+avatar);
 		String img_name = avatar.getOriginalFilename();
 		String imgpath = UUIDUtil.getUUID() + img_name.substring(img_name.indexOf("."));
-//		防止系统权限原因无法生成文件夹，res下创建avatar已备存放用户头像 ,默认头像为 avatar下的default.jpg
+//		闃叉绯荤粺鏉冮檺鍘熷洜鏃犳硶鐢熸垚鏂囦欢澶癸紝res涓嬪垱寤篴vatar宸插瀛樻斁鐢ㄦ埛澶村儚 ,榛樿澶村儚涓� avatar涓嬬殑default.jpg
 		String path = request.getServletContext().getRealPath("/res/avatar/")+imgpath;
 		File file = new File(path);
 		try {
