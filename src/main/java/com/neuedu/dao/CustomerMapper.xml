@@ -25,6 +25,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	
+	<!-- 注册功能：添加用户 -->
+	<insert id="addcustomer" parameterType="customer">
+		insert into fly_customer (username,password,nick_name,email) 
+		values (#{username},#{password},#{nick_name},#{email})
+	</insert>
+	<!-- 验证邮箱 -->
+	<select id="testemail" parameterType="string" resultType="customer">
+		select * from fly_customer where email = #{value}
+	</select>
+	
+	<!-- 验证用户名 -->
+	<select id="testusername" parameterType="string" resultType="customer">
+		select * from fly_customer where username = #{value}
+	</select>
+	
 </mapper>
 
 
