@@ -241,7 +241,7 @@ layui.config({
 </script>
 <script src="${pageContext.request.contextPath}/res/js/jquery-3.4.1.min.js"></script>
 <!-- 个人信息修改密码  Start -->
-<script type="text/javascript">
+<script>
 	/* 当前密码校验 */
 	function checkNowpass(){
 		var nowpass = $("#L_nowpass").val();
@@ -297,6 +297,7 @@ layui.config({
 		}
 		$("#messageRepass").html(message);
 	}
+	</script>
 <!-- 个人信息修改密码  End -->
 </body>
 
