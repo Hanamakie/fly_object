@@ -49,14 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>   -->
 	</select>
 	
-	<!-- 修改密码 -->
-	<select id="changepassword" parameterType="String" resultType="customer">
-		select `password` from fly_customer where email= "gao@163.com"
-		<!-- update fly_customer set password = #{password} -->
-		<!-- 		<where>
-			id = #{id}
-		</where>   -->
-	</select>
+	
 </mapper>
 
 

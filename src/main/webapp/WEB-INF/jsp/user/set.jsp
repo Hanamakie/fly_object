@@ -246,17 +246,12 @@ layui.config({
 	function checkNowpass(){
 		var nowpass = $("#L_nowpass").val();
 		$.ajax({
-			url:"${pageContext.request.contextPath}/checkpassword/"+nowpass,
+			url:"${pageContext.request.contextPath}/checkpassword/nowpass",
 			type:"post",
 			data:{
 				nowpass:nowpass
 			},success:function(s){
-				console.log(s);
-				if(s =="check"){
-					alert("check");
-				}else{
-					alert("cuncheck");
-				}
+				alert(s);
 			}
 		})
 	}

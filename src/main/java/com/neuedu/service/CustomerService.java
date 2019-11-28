@@ -22,5 +22,4 @@ public interface CustomerService {
 	void addcustomer(Customer customer);
 	String testemail(String email);
 	String testusername(String username);
-	Customer changepassword(String password);
 }

@@ -19,7 +19,4 @@ public interface CustomerMapper {
 	
 	/*验证用户名*/
 	Customer testusername(String username);
-	
-	/*用户查询密码*/
-	Customer changepassword(String password);
 }

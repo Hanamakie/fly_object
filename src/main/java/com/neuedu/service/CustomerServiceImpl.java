@@ -56,9 +56,4 @@ public  class CustomerServiceImpl implements CustomerService{
 		}
 		return s1;
 	}
-
-	public Customer changepassword(String password) {
-		// TODO Auto-generated method stub
-		return customerMapper.changepassword(password);
-	}
 }

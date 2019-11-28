@@ -129,7 +129,8 @@ public class IndexController {
 	* @description  基本设置控制器
 	**********************************************************************/
 	@RequestMapping(value="set")
-	public ModelAndView set(){
+	public ModelAndView set(MultipartFile avatar){
+		System.out.println(avatar);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/set");
 		return mv;
