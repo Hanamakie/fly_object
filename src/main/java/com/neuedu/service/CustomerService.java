@@ -22,4 +22,8 @@ public interface CustomerService {
 	void addcustomer(Customer customer);
 	String testemail(String email);
 	String testusername(String username);
+//	修改密码—————检测用户密码是否正确
+	Customer checkpassword(String password);
+//	修改密码---更新用户密码
+	Customer changepass(String password);
 }

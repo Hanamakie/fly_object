@@ -157,7 +157,7 @@
           </div>
           
           <div class="layui-form layui-form-pane layui-tab-item">
-            <form action="/user/repass" method="post">
+            <form action="${pageContext.request.contextPath }/changepass" method="post">
               <div class="layui-form-item">
                 <label for="L_nowpass" class="layui-form-label">当前密码</label>
                 <div class="layui-input-inline">
@@ -181,7 +181,7 @@
               </div>
               <div class="layui-form-item">
                 <!-- <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button> -->
-                <input class="layui-btn" key="set-mine" lay-filter="*" lay-submit value="确认修改"/>
+                <input class="layui-btn" type="submit" value="确认修改" />
               </div>
             </form>
           </div>
@@ -245,13 +245,20 @@ layui.config({
 	/* 当前密码校验 */
 	function checkNowpass(){
 		var nowpass = $("#L_nowpass").val();
+		var msg = "";
 		$.ajax({
-			url:"${pageContext.request.contextPath}/checkpassword/nowpass",
+			url:"${pageContext.request.contextPath}/checkpassword/"+nowpass,
 			type:"post",
+			contentType:"application/json",
 			data:{
 				nowpass:nowpass
 			},success:function(s){
-				alert(s);
+				if(s == "check"){
+					msg = "√".fontcolor("green");
+				}if(s == "uncheck"){
+					msg = "密码输入错误!".fontcolor("red");
+				}
+				$("#messageNowpass").html(msg);
 			}
 		})
 	}
@@ -283,12 +290,6 @@ layui.config({
 		var message = "";
 		if(repass == null || repass == ""){
 			message = "× 确认密码不允许为空！".fontcolor("red");
-		}else if(!pattern.test(repass)){
-			layer.open({
-				  title: '格式错误'
-				  ,content: '确认密码格式不正确，请重新填写！'
-				}); 
-			message = "× 确认密码格式不正确！".fontcolor("red");
 		}else if(repass != pass){
 			message = "× 两次密码输入不一致！".fontcolor("red");
 		}else{
@@ -296,6 +297,22 @@ layui.config({
 		}
 		$("#messageRepass").html(message);
 	}
+/* 	function submitpassword(){
+		var repass = $("#L_repass").val();
+		alert(repass);
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/changepass"+repass,
+			data:{
+				repass:repass
+			},success:function(s){
+				if(s == "change"){
+					$("#updateform").submit();
+					window.location.href = "${pageContext.request.contextPath }/login";
+				}
+			}
+		})
+	} */
 </script>
 <!-- 个人信息修改密码  End -->
 </body>
