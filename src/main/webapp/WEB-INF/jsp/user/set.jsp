@@ -297,23 +297,6 @@ layui.config({
 		}
 		$("#messageRepass").html(message);
 	}
-/* 	function submitpassword(){
-		var repass = $("#L_repass").val();
-		alert(repass);
-		$.ajax({
-			type:"post",
-			url:"${pageContext.request.contextPath}/changepass"+repass,
-			data:{
-				repass:repass
-			},success:function(s){
-				if(s == "change"){
-					$("#updateform").submit();
-					window.location.href = "${pageContext.request.contextPath }/login";
-				}
-			}
-		})
-	} */
-</script>
 <!-- 个人信息修改密码  End -->
 </body>
 
