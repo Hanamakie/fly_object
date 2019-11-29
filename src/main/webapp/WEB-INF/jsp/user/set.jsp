@@ -148,7 +148,10 @@
 	              <div class="avatar-add">
 	                <p>建议尺寸168*168，支持jpg、png、gif，最大不能超过50KB</p>
 	                <input type="file" name="avatar" id="avatar" class="avatar">
-	                <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+	                <fx:if test="${imgpath == ''|| imgpath == null}">
+	                	<img src="${pageContext.request.contextPath}/res/avatar/${imgpath}">
+	                </fx:if>
+	                <img src="${pageContext.request.contextPath}/res/avatar/${imgpath}">
 	                <span class="loading"></span>
 	                <input type="submit">
 	              </div>
