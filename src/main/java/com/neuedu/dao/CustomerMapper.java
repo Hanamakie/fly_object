@@ -22,9 +22,9 @@ public interface CustomerMapper {
 	
 	/*检测用户密码是否正确*/
 	
-	Customer checkpassword(String password);
+	Customer checkpassword(Customer customer);
 	
 	/*更新用户密码*/
 	
-	Customer changepass(String password);
+	void changepass(Customer customer);
 }

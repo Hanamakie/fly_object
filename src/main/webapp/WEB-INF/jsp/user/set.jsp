@@ -113,7 +113,7 @@
               <div class="layui-form-mid layui-word-aux">如果您在邮箱已激活的情况下，变更了邮箱，需<a href="activate.html" style="font-size: 12px; color: #4f99cf;">重新验证邮箱</a>。</div>
             </div>
             <div class="layui-form-item">
-              <label for="L_username" class="layui-form-label">昵称</label>
+              <label for="L_username" class="layui-form-label">昵称 </label>
               <div class="layui-input-inline">
                 <input type="text" id="L_username" name="username" required lay-verify="required" autocomplete="off" value="" class="layui-input">
               </div>
@@ -150,14 +150,14 @@
 	                <input type="file" name="avatar" id="avatar" class="avatar">
 	                <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
 	                <span class="loading"></span>
-	                <input type="submit" onclick="test()">
+	                <input type="submit">
 	              </div>
 	            </div>
             </form>
           </div>
           
           <div class="layui-form layui-form-pane layui-tab-item">
-            <form action="${pageContext.request.contextPath }/changepass" method="post">
+            <form action="${pageContext.request.contextPath }/changepass" method="post" onsubmit="return changepassword()">
               <div class="layui-form-item">
                 <label for="L_nowpass" class="layui-form-label">当前密码</label>
                 <div class="layui-input-inline">
@@ -166,7 +166,7 @@
                 <div class="layui-form-mid layui-word-aux" id="messageNowpass"></div>
               </div>
               <div class="layui-form-item">
-                <label for="L_pass" class="layui-form-label">新密码</label>
+                <label for="L_pass" class="layui-form-label">新密码 </label>
                 <div class="layui-input-inline">
                   <input type="password" id="L_pass" name="pass" required lay-verify="required" autocomplete="off" class="layui-input" onblur="checkPass()">
                 </div>
@@ -245,20 +245,19 @@ layui.config({
 	/* 当前密码校验 */
 	function checkNowpass(){
 		var nowpass = $("#L_nowpass").val();
-		var msg = "";
+		var message = "";
 		$.ajax({
 			url:"${pageContext.request.contextPath}/checkpassword/"+nowpass,
 			type:"post",
-			contentType:"application/json",
 			data:{
-				nowpass:nowpass
+				nowpass:nowpass,
 			},success:function(s){
-				if(s == "check"){
-					msg = "√".fontcolor("green");
-				}if(s == "uncheck"){
-					msg = "密码输入错误!".fontcolor("red");
+				if(s=="check"){
+					message = "√".fontcolor("green");
+				}if(s=="uncheck"){
+					message = "× 密码错误！".fontcolor("red");
 				}
-				$("#messageNowpass").html(msg);
+				$("#messageNowpass").html(message);
 			}
 		})
 	}
@@ -297,7 +296,22 @@ layui.config({
 		}
 		$("#messageRepass").html(message);
 	}
-	</script>
+	/* 表单验证 */
+	function changepassword(){
+		var messageNowpass = $("#messageNowpass");
+		var messagePass = $("#messagePass");
+		var messageRepass = $("#messageRepass");
+		if(messageNowpass.text() != "√"){
+			return false;
+		}
+		if(messagePass.text() != "√"){
+			return false;
+		}
+		if(messageRepass.text() != "√"){
+			return false;
+		}
+	}
+</script>
 <!-- 个人信息修改密码  End -->
 </body>
 

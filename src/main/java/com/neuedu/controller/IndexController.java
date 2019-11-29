@@ -1,23 +1,23 @@
 package com.neuedu.controller;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.neuedu.domain.Customer;
 import com.neuedu.service.CustomerService;
 
 @Controller
+@SessionAttributes("customer2")
 public class IndexController {
 	@Autowired
 	CustomerService customerservice;
@@ -61,19 +61,16 @@ public class IndexController {
 	@RequestMapping(value="loginin")
 	@ResponseBody
 	public String loginin(Customer customer,HttpSession session){
-		System.out.println(customer);
 		Customer customer2 = new Customer();
 		customer2 = customerservice.getCustomer(customer);
-		System.out.println(customer2);
-		ModelAndView mv = new ModelAndView();
 		String s="";
 		if(customer != null){
 			s="success";
-			session.setAttribute("customer", customer2);
+			session.setAttribute("customer2", customer2);
 		}else{
 			s="error";
 		}
-		return s;
+		return JSON.toJSONString(s);
 	}
 	/**********************************************************************
 	*

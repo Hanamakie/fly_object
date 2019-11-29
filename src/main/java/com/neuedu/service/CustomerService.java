@@ -2,8 +2,6 @@ package com.neuedu.service;
 
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.neuedu.domain.Customer;
 
 public interface CustomerService {
@@ -23,7 +21,7 @@ public interface CustomerService {
 	String testemail(String email);
 	String testusername(String username);
 //	修改密码—————检测用户密码是否正确
-	Customer checkpassword(String password);
+	Customer checkpassword(Customer customer);
 //	修改密码---更新用户密码
-	Customer changepass(String password);
+	void changepass(Customer customer);
 }

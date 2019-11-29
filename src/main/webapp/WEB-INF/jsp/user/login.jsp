@@ -148,11 +148,12 @@ layui.config({
 					email:email,
 					password:password
 				},success:function(s){
+					alert(s);
 					if(s=="success"){
-						window.location.href = "${pageContext.request.contextPath}/userindex";
+						window.location.href = "${pageContext.request.contextPath }/userindex";
 					}
 					if(s=="error"){
-						alert="账号或密码错误";
+						/* alert="账号或密码错误"; */
 					}
 				}
 			});
@@ -169,7 +170,7 @@ layui.config({
 					if(s=="success"){
 						window.location.href ="${pageContext.request.contextPath}/userindex";
 					}else if(s=="error"){
-						alert="账号或密码错误";
+						/* alert="账号或密码错误"; */
 					}
 				}
 			});

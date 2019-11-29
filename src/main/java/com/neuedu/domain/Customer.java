@@ -1,7 +1,5 @@
 package com.neuedu.domain;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class Customer {
 	private int id;
 	private String username;
@@ -11,7 +9,7 @@ public class Customer {
 	private int status;
 	private int vip_level;
 	// 头像
-	private MultipartFile avatar;
+	private String avatar;
 	public int getId() {
 		return id;
 	}
@@ -54,10 +52,11 @@ public class Customer {
 	public void setVip_level(int vip_level) {
 		this.vip_level = vip_level;
 	}
-	public MultipartFile getAvatar() {
+
+	public String getAvatar() {
 		return avatar;
 	}
-	public void setAvatar(MultipartFile avatar) {
+	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
 	@Override

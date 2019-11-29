@@ -41,22 +41,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 头像上传,用于信息修改页面 set#avatar -->
+<!-- 	<select id="uploadAvatar" parameterType="string" >
+		update fly_customer set avatar = #{avatar} where email = #{email} 
+	</select> -->
+	
+		<!-- 头像上传,用于信息修改页面 set#avatar 高云龙 -->
 	<select id="uploadAvatar" parameterType="String" resultType="customer">
-		update fly_customer set avatar = #{avatar}
-		<!-- 需求：根据登录后获取session预留入口做绑定用户 -->
-<!-- 		<where>
-			id = #{id}
-		</where>   -->
+		update fly_customer set avatar = #{avatar} 
 	</select>
 	
 	<!-- 检测用户密码是否正确 -->
 	<select id="checkpassword" parameterType="String" resultType="customer">
-		SELECT `password` from fly_customer where email = 'gao@163.com'
+		SELECT `password` from fly_customer where email = #{email}
 	</select>
 	
 	<!-- 更新用户密码 -->
-	<select id="changepass" parameterType="String">
-		update fly_customer set password = #{password} where email = 'gao@163.com'
+	<select id="changepass" parameterType="String" >
+		update fly_customer set password = #{password} where email = #{email}
 	</select>
 </mapper>
 

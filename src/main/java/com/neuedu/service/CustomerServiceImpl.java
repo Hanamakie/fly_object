@@ -22,11 +22,6 @@ public  class CustomerServiceImpl implements CustomerService{
 		return customer2;
 	}
 
-	/*用户上传头像*/
-	public List<Customer> uploadAvatar(String avatar) {
-		// TODO Auto-generated method stub
-		return customerMapper.uploadAvatar(avatar);
-	}
 	/*添加邮箱*/
 	public void addcustomer(Customer customer) {
 		// TODO Auto-generated method stub
@@ -57,13 +52,18 @@ public  class CustomerServiceImpl implements CustomerService{
 		return s1;
 	}
 
-	public Customer checkpassword(String password) {
+	public Customer checkpassword(Customer customer) {
 		// TODO Auto-generated method stub
-		return customerMapper.checkpassword(password);
+		return customerMapper.checkpassword(customer);
 	}
 
-	public Customer changepass(String password) {
+	public void changepass(Customer customer) {
 		// TODO Auto-generated method stub
-		return customerMapper.changepass(password);
+		customerMapper.changepass(customer);
+	}
+
+	public List<Customer> uploadAvatar(String avatar) {
+		// TODO Auto-generated method stub
+		return customerMapper.uploadAvatar(avatar);
 	}
 }
