@@ -30,9 +30,9 @@ public class ChangePasswordController {
 	@RequestMapping(value="checkpassword/{password}")
 	@ResponseBody
 	public String checkpassword(@PathVariable("password") String password,Customer customer,HttpSession session,HttpServletRequest request) {
-		Customer email = (Customer) session.getAttribute("customer2");
-		customer.setEmail(email.getEmail());
-		String check  = customerservice.checkpassword(email).getPassword();
+		Customer id = (Customer) session.getAttribute("customer2");
+		customer.setId(id.getId());
+		String check  = customerservice.checkpassword(id).getPassword();
 		String msg = "";
 		if(check.equals(password)) {
 			msg = "check";
@@ -53,8 +53,8 @@ public class ChangePasswordController {
 	@RequestMapping(value="changepass", method=RequestMethod.POST)
 	public ModelAndView changepass(Customer customer,HttpServletRequest request,HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		Customer email = (Customer) session.getAttribute("customer2");
-		customer.setEmail(email.getEmail());
+		Customer id = (Customer) session.getAttribute("customer2");
+		customer.setId(id.getId());
 		customer.setPassword( request.getParameter("repass"));
 		customerservice.changepass(customer);
 //		更新密码,清空session,跳转到登录页面
