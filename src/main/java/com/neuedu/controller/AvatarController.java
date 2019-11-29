@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,20 +32,22 @@ public class AvatarController {
 	**********************************************************************/
 	@RequestMapping(value="set/avatar")
 //	@InitBinder
-	public ModelAndView avatar(MultipartFile avatar,Customer customer,HttpServletRequest request) {
+	public ModelAndView avatar(MultipartFile avatar,HttpServletRequest request,HttpSession session) {
 //		时间转换，防止上传头像时因data转换问题而包异常 ：根据需求增加
 //		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));,WebDataBinder binder
 		System.out.println("哈哈"+avatar);
+		Customer customer2 = null;
+		customer2 = (Customer) session.getAttribute("customer2");
 		ModelAndView mv = new ModelAndView();
 		String img_name = avatar.getOriginalFilename();
 		String imgpath = UUIDUtil.getUUID() + img_name.substring(img_name.indexOf("."));
+		customer2.setAvatar(imgpath);
 //		防止系统权限原因无法生成文件夹，res下创建avatar已备存放用户头像 ,默认头像为 avatar下的default.jpg
 		String path = request.getServletContext().getRealPath("/res/avatar/")+imgpath;
 		File file = new File(path);
 		try {
 			avatar.transferTo(file);
-			System.out.println(customer.getAvatar());
-			customerservice.uploadAvatar(imgpath);
+			customerservice.uploadAvatar(customer2);
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,6 +55,7 @@ public class AvatarController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("头像上传"+customer2);
 		mv.addObject("imgpath",imgpath);
 		mv.setViewName("user/set");
 		return mv;

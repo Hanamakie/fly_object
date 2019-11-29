@@ -148,10 +148,12 @@
 	              <div class="avatar-add">
 	                <p>建议尺寸168*168，支持jpg、png、gif，最大不能超过50KB</p>
 	                <input type="file" name="avatar" id="avatar" class="avatar">
-	                <fx:if test="${imgpath == ''|| imgpath == null}">
+	                 <fx:if test="${imgpath == ''|| imgpath == null}">
+	                	<img src="${pageContext.request.contextPath}/res/avatar/${customer2.avatar}">
+	                </fx:if>
+	                <fx:if test="${imgpath == customer2.avatar}">
 	                	<img src="${pageContext.request.contextPath}/res/avatar/${imgpath}">
 	                </fx:if>
-	                <img src="${pageContext.request.contextPath}/res/avatar/${imgpath}">
 	                <span class="loading"></span>
 	                <input type="submit">
 	              </div>

@@ -11,7 +11,7 @@ public class Customer {
 	private int status;
 	private int vip_level;
 	// 头像
-	private MultipartFile avatar;
+	private String avatar;
 	public int getId() {
 		return id;
 	}
@@ -54,16 +54,16 @@ public class Customer {
 	public void setVip_level(int vip_level) {
 		this.vip_level = vip_level;
 	}
-	public MultipartFile getAvatar() {
+	public String getAvatar() {
 		return avatar;
 	}
-	public void setAvatar(MultipartFile avatar) {
+	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", username=" + username + ", password=" + password + ", nick_name=" + nick_name
-				+ ", email=" + email + ", status=" + status + ", vip_level=" + vip_level + "]";
+				+ ", email=" + email + ", status=" + status + ", vip_level=" + vip_level + ", avatar=" + avatar + "]";
 	}
 
 }

@@ -62,8 +62,9 @@ public  class CustomerServiceImpl implements CustomerService{
 		customerMapper.changepass(customer);
 	}
 
-	public List<Customer> uploadAvatar(String avatar) {
+	public void uploadAvatar(Customer customer) {
 		// TODO Auto-generated method stub
-		return customerMapper.uploadAvatar(avatar);
+		customerMapper.uploadAvatar(customer);
 	}
+
 }

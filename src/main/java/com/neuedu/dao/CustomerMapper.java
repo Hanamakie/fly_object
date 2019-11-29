@@ -9,7 +9,7 @@ public interface CustomerMapper {
 	Customer getCustomer(Customer customer);
 	
 	//头像上传
-	List<Customer> uploadAvatar(String avatar);
+	void uploadAvatar(Customer customer);
 	
 	/*注册功能：添加用户*/
 	void addcustomer(Customer customer);

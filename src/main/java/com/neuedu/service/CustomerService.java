@@ -8,7 +8,7 @@ public interface CustomerService {
 //	登录查询
 	Customer getCustomer(Customer customer);
 //	头像上传     高云龙
-	List<Customer> uploadAvatar(String avatar);
+	void uploadAvatar(Customer customer);
 	/**********************************************************************
 	*
 	* @fileName     IndexController.java

@@ -106,7 +106,7 @@ public class RegController {
 	public String testusername(String username) {
 		String s  = null;
 		 String customer = customerService.testusername(username);
-		 System.out.println(username);
+		
 		  if(customer ==  "OK") {
 				s = "OK";
 			}else if(customer == "NO"){
