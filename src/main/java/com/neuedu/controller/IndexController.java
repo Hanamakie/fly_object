@@ -1,7 +1,5 @@
 package com.neuedu.controller;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
@@ -55,7 +52,6 @@ public class IndexController {
 	* @author		ChangEnYing
 	* @date		 	2019-11-23
 	* @version      V1.0.0
-	 * @throws IOException 
 	* @description  登陆页面控制器
 	**********************************************************************/
 	@RequestMapping(value="loginin")
@@ -67,6 +63,8 @@ public class IndexController {
 		if(customer != null){
 			s="success";
 			session.setAttribute("customer2", customer2);
+//			设置session存储时间
+			session.setMaxInactiveInterval(30);//1800
 		}else{
 			s="error";
 		}
@@ -92,7 +90,6 @@ public class IndexController {
 	* @author		ChangEnYing
 	* @date		 	2019-11-25
 	* @version      V1.0.0
-	 * @throws IOException 
 	* @description  用户界面主页控制器
 	**********************************************************************/
 	@RequestMapping(value="userindex")
@@ -107,7 +104,6 @@ public class IndexController {
 	* @author		ChangEnYing
 	* @date		 	2019-11-25
 	* @version      V1.0.0
-	 * @throws IOException 
 	* @description  我的主页控制器
 	**********************************************************************/
 	@RequestMapping(value="home")
@@ -122,12 +118,10 @@ public class IndexController {
 	* @author		ChangEnYing
 	* @date		 	2019-11-25
 	* @version      V1.0.0
-	 * @throws IOException 
 	* @description  基本设置控制器
 	**********************************************************************/
 	@RequestMapping(value="set")
-	public ModelAndView set(MultipartFile avatar){
-		System.out.println(avatar);
+	public ModelAndView set(){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/set");
 		return mv;
@@ -138,7 +132,6 @@ public class IndexController {
 	* @author		ChangEnYing
 	* @date		 	2019-11-25
 	* @version      V1.0.0
-	 * @throws IOException 
 	* @description  我的消息控制器
 	**********************************************************************/
 	@RequestMapping(value="message")
