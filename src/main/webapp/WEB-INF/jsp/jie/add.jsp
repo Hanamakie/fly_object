@@ -11,68 +11,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="fly,layui,前端社区">
   <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
+  <!-- fly基础样式 -->
   <%@include file="../common/link.jsp" %>
+  <!-- ueditor主要依赖 -->
+  <%@include file="../common/ueditor.jsp" %>
 </head>
 <body>
 
-<div class="fly-header layui-bg-black">
-  <div class="layui-container">
-    <a class="fly-logo" href="/">
-      <img src="../../res/images/logo.png" alt="layui">
-    </a>
-    <ul class="layui-nav fly-nav layui-hide-xs">
-      <li class="layui-nav-item layui-this">
-        <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="../case/case.html"><i class="iconfont icon-iconmingxinganli"></i>案例</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="http://www.layui.com/" target="_blank"><i class="iconfont icon-ui"></i>框架</a>
-      </li>
-    </ul>
-    
-    <ul class="layui-nav fly-nav-user">
-      
-      <!-- 未登入的状态 -->
-      <!--
-      <li class="layui-nav-item">
-        <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="user/login.html">登入</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="user/reg.html">注册</a>
-      </li>
-      <li class="layui-nav-item layui-hide-xs">
-        <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
-      </li>
-      <li class="layui-nav-item layui-hide-xs">
-        <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
-      </li>
-       -->
-      
-      <!-- 登入后的状态 -->
-      <li class="layui-nav-item">
-        <a class="fly-nav-avatar" href="javascript:;">
-          <cite class="layui-hide-xs">贤心</cite>
-          <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-          <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
-          <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
-        </a>
-        <dl class="layui-nav-child">
-          <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-          <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-          <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
-          <hr style="margin: 5px 0;">
-          <dd><a href="" style="text-align: center;">退出</a></dd>
-        </dl>
-      </li>
-    </ul>
-  </div>
-</div>
-
+<%@include file="../common/header.jsp" %>
 <div class="layui-container fly-marginTop">
   <div class="fly-panel" pad20 style="padding-top: 5px;">
     <!--<div class="fly-none">没有权限</div>-->
@@ -83,19 +29,16 @@
         </ul>
         <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
           <div class="layui-tab-item layui-show">
-            <form action="" method="post">
+            <form action="${pageContext.request.contextPath }/publishAnArticle" method="post">
               <div class="layui-row layui-col-space15 layui-form-item">
                 <div class="layui-col-md3">
                   <label class="layui-form-label">所在专栏</label>
                   <div class="layui-input-block">
-                    <select lay-verify="required" name="class" lay-filter="column"> 
-                      <option></option> 
-                      <option value="0">提问</option> 
-                      <option value="99">分享</option> 
-                      <option value="100">讨论</option> 
-                      <option value="101">建议</option> 
-                      <option value="168">公告</option> 
-                      <option value="169">动态</option> 
+                    <select lay-verify="required" name="special_column" lay-filter="column" style="z-index:999">
+                      <fx:forEach items="${special_column }" var="special_column">
+                        <option></option>
+                      	<option value="${special_column.id }">${special_column.special_column }</option>
+                      </fx:forEach> 
                     </select>
                   </div>
                 </div>
@@ -136,7 +79,8 @@
               </div>
               <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
-                  <textarea id="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
+                  <!-- <textarea id="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea> -->
+					<textarea id="editor" name="content" required placeholder="详细描述" style="height: 260px;"></textarea>  
                 </div>
               </div>
               <div class="layui-form-item">
@@ -144,11 +88,9 @@
                   <label class="layui-form-label">悬赏飞吻</label>
                   <div class="layui-input-inline" style="width: 190px;">
                     <select name="experience">
-                      <option value="20">20</option>
-                      <option value="30">30</option>
-                      <option value="50">50</option>
-                      <option value="60">60</option>
-                      <option value="80">80</option>
+                      <fx:forEach items="${kiss }" var="kiss">
+                      	<option value="${kiss.id }">${kiss.kiss_num }</option>
+                      </fx:forEach> 
                     </select>
                   </div>
                   <div class="layui-form-mid layui-word-aux">发表后无法更改飞吻</div>
@@ -164,7 +106,8 @@
                 </div>
               </div>
               <div class="layui-form-item">
-                <button class="layui-btn" lay-filter="*" lay-submit>立即发布</button>
+                <!-- <button class="layui-btn" lay-filter="*" lay-submit>立即发布</button> -->
+                <input class="layui-btn" type="submit" value="立即发布">
               </div>
             </form>
           </div>
@@ -183,23 +126,53 @@
   </p>
 </div>
 
-<script src="../../res/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/res/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/res/js/jquery-3.4.1.min.js"></script>
 <script>
 layui.cache.page = 'jie';
 layui.cache.user = {
   username: '游客'
   ,uid: -1
-  ,avatar: '../../res/images/avatar/00.jpg'
+  ,avatar: '${pageContext.request.contextPath}/res/images/avatar/00.jpg'
   ,experience: 83
   ,sex: '男'
 };
 layui.config({
   version: "3.0.0"
-  ,base: '../../res/mods/'
+  ,base: '${pageContext.request.contextPath}/res/mods/'
 }).extend({
   fly: 'index'
 }).use('fly');
 </script>
+<!-- 初始化UEditor -->
+<script type="text/javascript">
+	/* 解决文本编辑器z-index问题 */
+	$(function(){ 
+		$("#edui1").removeAttr("style","");
+		$("#edui1_iframeholder").removeAttr("style","");
+	}); 
+		
+    var ue = UE.getEditor('editor');
+    
+</script>
+<!-- 获取文章分类 -->
+<script>
+	function required(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/special_column",
+			type:"post",
+			data:{
+				
+			},success:function(s){
+				if(s == "get"){
+					alert("!");
+				}else if(s == "unget"){
+					alert("?");
+				}
+			}
+		})
+	}
 
+</script>
 </body>
 </html>

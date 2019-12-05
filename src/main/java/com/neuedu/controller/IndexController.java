@@ -63,8 +63,6 @@ public class IndexController {
 		if(customer != null){
 			s="success";
 			session.setAttribute("customer2", customer2);
-//			设置session存储时间
-			session.setMaxInactiveInterval(30);//1800
 		}else{
 			s="error";
 		}
@@ -138,6 +136,21 @@ public class IndexController {
 	public ModelAndView message(){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/message");
+		return mv;
+	}
+	/**********************************************************************
+	*
+	* @fileName     IndexController.java
+	* @author		GaoYunLong
+	* @date		 	2019-12-03
+	* @version      V1.0.0
+	* @description  用户退出控制器
+	**********************************************************************/
+	@RequestMapping(value="logout")
+	public ModelAndView logout(HttpSession session){
+		ModelAndView mv = new ModelAndView();
+		session.invalidate();
+		mv.setViewName("index");
 		return mv;
 	}
 }

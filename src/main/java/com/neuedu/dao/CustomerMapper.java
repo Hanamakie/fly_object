@@ -1,7 +1,5 @@
 package com.neuedu.dao;
 
-import java.util.List;
-
 import com.neuedu.domain.Customer;
 
 public interface CustomerMapper {

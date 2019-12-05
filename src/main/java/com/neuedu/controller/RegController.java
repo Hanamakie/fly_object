@@ -1,9 +1,5 @@
 package com.neuedu.controller;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.Scanner;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -104,7 +100,7 @@ public class RegController {
 	@RequestMapping(value="testusername")
 	@ResponseBody
 	public String testusername(String username) {
-		String s  = null;
+		 String s  = null;
 		 String customer = customerService.testusername(username);
 		
 		  if(customer ==  "OK") {
@@ -112,7 +108,6 @@ public class RegController {
 			}else if(customer == "NO"){
 				s = "NO";
 			}
-		  System.out.println(s);
 		  return s;
 	}
 }

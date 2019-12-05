@@ -1,7 +1,4 @@
 package com.neuedu.service;
-
-import java.util.List;
-
 import com.neuedu.domain.Customer;
 
 public interface CustomerService {
