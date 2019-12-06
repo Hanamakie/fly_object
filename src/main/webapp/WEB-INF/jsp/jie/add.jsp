@@ -80,7 +80,7 @@
               <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
                   <!-- <textarea id="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea> -->
-					<textarea id="editor" name="content" required placeholder="详细描述" style="height: 260px;"></textarea>  
+					<textarea id="editor" name="content" style="height: 260px;"></textarea>  
                 </div>
               </div>
               <div class="layui-form-item">
@@ -152,7 +152,7 @@ layui.config({
 		$("#edui1_iframeholder").removeAttr("style","");
 	}); 
 		
-    var ue = UE.getEditor('editor');
+	var ue = UE.getEditor('editor');
     
 </script>
 <!-- 获取文章分类 -->
