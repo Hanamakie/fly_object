@@ -13,10 +13,7 @@ public  class CustomerServiceImpl implements CustomerService{
 
 	public Customer getCustomer(Customer customer) {
 		// TODO Auto-generated method stub
-		System.out.println(customer);
-		Customer customer2=new Customer();
-		customer2=customerMapper.getCustomer(customer);
-		return customer2;
+		return customerMapper.getCustomer(customer);
 	}
 
 	/*添加邮箱*/

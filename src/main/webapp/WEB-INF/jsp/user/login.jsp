@@ -24,7 +24,7 @@
     <div class="layui-tab layui-tab-brief" lay-filter="user">
       <ul class="layui-tab-title">
         <li class="layui-this">登入</li>
-        <li><a href="reg.html">注册</a></li>
+        <li><a href="${pageContext.request.contextPath }/reg">注册</a></li>
       </ul>
       <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
@@ -53,7 +53,8 @@
               </div>
               <div class="layui-form-item">
                 <!-- <button class="layui-btn" lay-filter="*" lay-submit>立即登录</button> -->
-               	<button type="button"class="layui-btn" onclick="loginin()">立即登录</button>
+               	<button type="button" class="layui-btn" onclick="loginin()">立即登录</button>
+               	<!-- <input type="submit" value="立即登录" class="layui-btn"> -->
                 <span style="padding-left:20px;">
                   <a href="forget.html">忘记密码？</a>
                 </span>
@@ -117,7 +118,6 @@ layui.config({
 						window.location.href = "${pageContext.request.contextPath }/userindex";
 					}
 					if(s=="error"){
-						/* alert="账号或密码错误"; */
 					}
 				}
 			});
@@ -134,7 +134,6 @@ layui.config({
 					if(s=="success"){
 						window.location.href ="${pageContext.request.contextPath}/userindex";
 					}else if(s=="error"){
-						/* alert="账号或密码错误"; */
 					}
 				}
 			});
