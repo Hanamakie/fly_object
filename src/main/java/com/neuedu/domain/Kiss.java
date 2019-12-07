@@ -2,7 +2,7 @@ package com.neuedu.domain;
 
 public class Kiss {
 	private int id; // 飞吻数编号
-	private String kiss_num; // 飞吻数\
+	private String kiss_num; // 飞吻数
 	public int getId() {
 		return id;
 	}

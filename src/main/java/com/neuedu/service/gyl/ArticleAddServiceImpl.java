@@ -25,5 +25,18 @@ public class ArticleAddServiceImpl implements ArticleAddService{
 		// TODO Auto-generated method stub
 		articleAddMapper.publishAnArticle(release);
 	}
+	public List<Release> postrelease(int id) {
+		// TODO Auto-generated method stub
+		return articleAddMapper.postrelease(id);
+	}
+	public int getreleasecount(int id) {
+		// TODO Auto-generated method stub
+		return articleAddMapper.getreleasecount(id);
+	}
+	public Release getsumcontext(int id) {
+		// TODO Auto-generated method stub
+		return articleAddMapper.getsumcontext(id);
+	}
+
 
 }

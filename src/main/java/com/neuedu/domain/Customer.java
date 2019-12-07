@@ -12,6 +12,13 @@ public class Customer {
 	// 头像
 	private String avatar;
 	private Level level;
+	private Release release;
+	public Release getRelease() {
+		return release;
+	}
+	public void setRelease(Release release) {
+		this.release = release;
+	}
 	public int getId() {
 		return id;
 	}

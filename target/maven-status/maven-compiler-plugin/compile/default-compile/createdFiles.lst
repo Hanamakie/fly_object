@@ -17,5 +17,4 @@ com\neuedu\service\CustomerService.class
 com\neuedu\domain\Customer.class
 com\neuedu\domain\Release.class
 com\neuedu\service\gyl\ArticleAddService.class
-com\neuedu\util\LoginInterceptor.class
 com\neuedu\controller\ArticleAddController.class

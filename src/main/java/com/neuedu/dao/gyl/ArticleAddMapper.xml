@@ -21,6 +21,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(title,content,user_id,view_count,special_column_id,fly_kiss_id) 
 		values (#{title},#{content},#{user_id},#{view_count},#{special_column_id},#{fly_kiss_id})
 	</insert>
+	<!-- 查询后台“我发的帖子” -->
+	<select id="postrelease" parameterType="int" resultType="release">
+		select 
+			r.id,r.title,r.view_count,r.create_time 
+		from 
+			fly_release r,fly_customer c 
+		<where>
+			r.user_id = c.id and c.id = #{value}
+		</where>
+	</select>
+	<!-- 获取后台用户文章总条数 -->
+	<select id="getreleasecount" parameterType="int" resultType="int">
+		select count(*) from fly_release r,fly_customer c where  r.user_id = c.id and c.id = #{value}
+	</select>
+	<!-- 获取文章信息 -->
+	<select id="getsumcontext" parameterType="int" resultType="release">
+		select r.id,r.title,r.content,r.fly_kiss_id,k.kiss_num,r.view_count,s.special_column,r.create_time from
+		fly_release r,fly_customer c ,fly_special_column s, fly_kiss k 
+		where r.special_column_id = s.id and r.user_id = c.id and r.fly_kiss_id = k.id and r.static = 0 and  r.id = 27 
+		GROUP BY r.id,r.title,r.content,r.fly_kiss_id,r.view_count,s.special_column,r.create_time
+		limit 1
+	</select>
 </mapper>
 
 

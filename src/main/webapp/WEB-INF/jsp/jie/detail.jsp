@@ -3,14 +3,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fx" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
-
- 
- 
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Fly Template v3.0，基于 layui 的极简社区页面模版</title>
+  <title>${sumcontext.title }</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="fly,layui,前端社区">
   <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
@@ -20,40 +17,11 @@
 
 <%@include file="../common/header.jsp" %>
 
-<div class="layui-hide-xs">
-  <div class="fly-panel fly-column">
-    <div class="layui-container">
-      <ul class="layui-clear">
-        <li class="layui-hide-xs"><a href="/">首页</a></li> 
-        <li class="layui-this"><a href="">提问</a></li> 
-        <li><a href="">分享<span class="layui-badge-dot"></span></a></li> 
-        <li><a href="">讨论</a></li> 
-        <li><a href="">建议</a></li> 
-        <li><a href="">公告</a></li> 
-        <li><a href="">动态</a></li> 
-        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li> 
-        
-        <!-- 用户登入后显示 -->
-        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="../user/index.html">我发表的贴</a></li> 
-        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="../user/index.html#collection">我收藏的贴</a></li> 
-      </ul> 
-      
-      <div class="fly-column-right layui-hide-xs"> 
-        <span class="fly-search"><i class="layui-icon"></i></span> 
-        <a href="add.html" class="layui-btn">发表新帖</a> 
-      </div> 
-      <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;"> 
-        <a href="add.html" class="layui-btn">发表新帖</a> 
-      </div> 
-    </div>
-  </div>
-</div>
-
 <div class="layui-container">
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md8 content detail">
       <div class="fly-panel detail-box">
-        <h1>Fly Template v3.0，基于 layui 的极简社区页面模版</h1>
+        <h1>${sumcontext.title }</h1>
         <div class="fly-detail-info">
           <!-- <span class="layui-badge">审核中</span> -->
           <span class="layui-badge layui-bg-green fly-detail-column">动态</span>
@@ -75,15 +43,15 @@
           </div>
           <span class="fly-list-nums"> 
             <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>
-            <i class="iconfont" title="人气">&#xe60b;</i> 99999
+            <i class="iconfont" title="人气">&#xe60b;</i> ${sumcontext.view_count }
           </span>
         </div>
         <div class="detail-about">
-          <a class="fly-avatar" href="../user/home.html">
+          <a class="fly-avatar" href="${pageContext.request.contextPath}/user/home">
             <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
           </a>
           <div class="fly-detail-user">
-            <a href="../user/home.html" class="fly-link">
+            <a href="${pageContext.request.contextPath}/user/home" class="fly-link">
               <cite>贤心</cite>
               <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
               <i class="layui-badge fly-badge-vip">VIP3</i>
@@ -96,17 +64,17 @@
           </div>
         </div>
         <div class="detail-body photos">
-          <p>
-            该模版由 layui官方社区（<a href="http://fly.layui.com/" target="_blank">fly.layui.com</a>）倾情提供，只为表明我们对 layui 执着的信念、以及对未来持续加强的承诺。该模版基于 layui 搭建而成，可作为极简通用型社区的页面支撑。
-          </p>
-          <p>更新日志：</p>
+		  <p>
+		  	${sumcontext.content }
+		  </p>
+<!--           <p>更新日志：</p>
 <pre>
 # v3.0 2017-11-30
 * 采用 layui 2.2.3 作为 UI 支撑
 * 全面同步最新的 Fly 社区风格，各种细节得到大幅优化
 * 更友好的响应式适配能力
-</pre>
-          
+</pre> -->
+<%--           
           下载<hr>
           <p>
             官网：<a href="http://www.layui.com/template/fly/" target="_blank">http://www.layui.com/template/fly/</a><br>
@@ -115,10 +83,10 @@
           </p>
           封面<hr>
           <p>
-            <img src="../../res/images/fly.jpg" alt="Fly社区">
+            <img src=".${pageContext.request.contextPath}/res/images/fly.jpg" alt="Fly社区">
           </p>
         </div>
-      </div>
+      </div> --%>
 
       <div class="fly-panel detail-box" id="flyReply">
         <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
@@ -305,19 +273,19 @@
   </p>
 </div>
 
-<script src="../../res/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath}/res/layui/layui.js"></script>
 <script>
 layui.cache.page = 'jie';
 layui.cache.user = {
   username: '游客'
   ,uid: -1
-  ,avatar: '../../res/images/avatar/00.jpg'
+  ,avatar: '${pageContext.request.contextPath}/res/images/avatar/00.jpg'
   ,experience: 83
   ,sex: '男'
 };
 layui.config({
   version: "3.0.0"
-  ,base: '../../res/mods/'
+  ,base: '${pageContext.request.contextPath}/res/mods/'
 }).extend({
   fly: 'index'
 }).use(['fly', 'face'], function(){

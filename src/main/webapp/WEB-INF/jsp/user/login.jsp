@@ -113,9 +113,8 @@ layui.config({
 					email:email,
 					password:password
 				},success:function(s){
-					alert(s);
 					if(s=="success"){
-						window.location.href = "${pageContext.request.contextPath }/userindex";
+						window.location.href = "${pageContext.request.contextPath }/index";
 					}
 					if(s=="error"){
 					}
@@ -132,7 +131,7 @@ layui.config({
 				},success:function(s){
 					
 					if(s=="success"){
-						window.location.href ="${pageContext.request.contextPath}/userindex";
+						window.location.href ="${pageContext.request.contextPath}/index";
 					}else if(s=="error"){
 					}
 				}

@@ -2,6 +2,8 @@ package com.neuedu.domain;
 
 import java.util.Date;
 
+import com.neuedu.util.DateUtil;
+
 public class Release {
 	private int id; // 文章标识
 	private String title; // 文章标题
@@ -13,6 +15,20 @@ public class Release {
 	private int fly_kiss_id; // 飞吻数
 	private int sort_order; // 排序
 	private int sticky; // 指定级别
+	private Customer customer;
+	private Kiss kiss;//飞吻数
+	public Kiss getKiss() {
+		return kiss;
+	}
+	public void setKiss(Kiss kiss) {
+		this.kiss = kiss;
+	}
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 	public int getId() {
 		return id;
 	}
@@ -37,8 +53,8 @@ public class Release {
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-	public Date getCreate_time() {
-		return create_time;
+	public String getCreate_time() {
+		return DateUtil.getDateString(create_time);
 	}
 	public void setCreate_time(Date create_time) {
 		this.create_time = create_time;

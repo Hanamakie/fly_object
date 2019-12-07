@@ -123,9 +123,9 @@
 		</dependency>
 		<!-- Upload avatar needs to rely on End -->
 	</dependencies>
-<!-- 	<build>
+ 	<build>
 	  <resources>
-	    编译之后包含xml
+	    <!-- 编译之后包含xml -->
 	    <resource>
 	      <directory>src/main/java</directory>
 	      <includes>
@@ -133,7 +133,7 @@
 	      </includes>
 	      <filtering>true</filtering>
 	    </resource>
-	    编译之后包含xml和properties
+	    <!-- 编译之后包含xml和properties -->
 	    <resource>
 	      <directory>src/main/resources</directory>
 	      <includes>
@@ -142,5 +142,5 @@
 	      <filtering>true</filtering>
 	    </resource>
 	  </resources>
-	</build> -->
+	</build>
 </project>

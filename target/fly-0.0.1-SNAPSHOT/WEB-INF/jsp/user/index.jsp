@@ -2,9 +2,7 @@
     pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fx" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +26,7 @@
       </a>
     </li>
     <li class="layui-nav-item layui-this">
-      <a href="${pageContext.request.contextPath }/userindex">
+      <a href="${pageContext.request.contextPath }/index">
         <i class="layui-icon">&#xe612;</i>
         用户中心
       </a>
@@ -66,14 +64,157 @@
     -->
     <div class="layui-tab layui-tab-brief" lay-filter="user">
       <ul class="layui-tab-title" id="LAY_mine">
-        <li data-type="mine-jie" lay-id="index" class="layui-this">我发的帖（<span>89</span>）</li>
+        <li data-type="mine-jie" lay-id="index" class="layui-this">我发的帖（<span>${count }</span>）</li>
         <li data-type="collection" data-url="/collection/find/" lay-id="collection">我收藏的帖（<span>16</span>）</li>
       </ul>
       <div class="layui-tab-content" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
-          <ul class="mine-view jie-row">
-            <li>
-              <a class="jie-title" href="../jie/detail.html" target="_blank">基于 layui 的极简社区页面模版</a>
+          <ul class="mine-view jie-row">		
+          	<fx:if test="${release != null}">
+          	    <fx:forEach items="${release}" var="release">
+	          		<li>
+		              <a class="jie-title" href="${pageContext.request.contextPath }/detail/${release.id}" target="_blank" title="${release.title}">${release.title}</a>
+		              <i>${release.create_time }</i>
+		              <a class="mine-edit" href="${pageContext.request.contextPath }/edit/${release.id}" target="_blank" title="点击编辑">编辑</a>
+		              <em>${release.view_count }</em>
+		            </li>
+	          	</fx:forEach>
+          	</fx:if>
+			<fx:if test="${count == 0}">
+				<div class="layui-tab-content" id="LAY_ucm" style="padding: 5px 0;">
+				    <div class="layui-tab-item layui-show">
+				        <table class="layui-hide" id="LAY_mySendCard">
+				        </table>
+				        <div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-1"
+				        lay-id="LAY_mySendCard" style=" ">
+				            <div class="layui-table-box">
+				                <div class="layui-table-header">
+				                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table"
+				                    lay-skin="line">
+				                        <thead>
+				                            <tr>
+				                                <th data-field="title" data-key="1-0-0" data-minwidth="300" class="">
+				                                    <div class="layui-table-cell laytable-cell-1-0-0">
+				                                        <span>
+				                                            帖子标题
+				                                        </span>
+				                                    </div>
+				                                </th>
+				                                <th data-field="status" data-key="1-0-1" class="">
+				                                    <div class="layui-table-cell laytable-cell-1-0-1" align="center">
+				                                        <span>
+				                                            状态
+				                                        </span>
+				                                    </div>
+				                                </th>
+				                                <th data-field="status" data-key="1-0-2" class="">
+				                                    <div class="layui-table-cell laytable-cell-1-0-2" align="center">
+				                                        <span>
+				                                            结贴
+				                                        </span>
+				                                    </div>
+				                                </th>
+				                                <th data-field="time" data-key="1-0-3" class="">
+				                                    <div class="layui-table-cell laytable-cell-1-0-3" align="center">
+				                                        <span>
+				                                            发表时间
+				                                        </span>
+				                                    </div>
+				                                </th>
+				                                <th data-field="4" data-key="1-0-4" class=" layui-table-col-special">
+				                                    <div class="layui-table-cell laytable-cell-1-0-4">
+				                                        <span>
+				                                            数据
+				                                        </span>
+				                                    </div>
+				                                </th>
+				                                <th data-field="5" data-key="1-0-5" class=" layui-table-col-special">
+				                                    <div class="layui-table-cell laytable-cell-1-0-5">
+				                                        <span>
+				                                            操作
+				                                        </span>
+				                                    </div>
+				                                </th>
+				                            </tr>
+				                        </thead>
+				                    </table>
+				                </div>
+				                <div class="layui-table-body layui-table-main">
+				                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table"
+				                    lay-skin="line">
+				                        <tbody>
+				                        </tbody>
+				                    </table>
+				                    <div class="layui-none">
+				                        无数据
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="layui-table-page layui-hide">
+				                <div id="layui-table-page1">
+				                </div>
+				            </div>
+				            <style>
+				                .laytable-cell-1-0-0{ }.laytable-cell-1-0-1{ width: 100px; }.laytable-cell-1-0-2{
+				                width: 100px; }.laytable-cell-1-0-3{ width: 120px; }.laytable-cell-1-0-4{
+				                width: 150px; }.laytable-cell-1-0-5{ width: 100px; }
+				            </style>
+				        </div>
+				    </div>
+				    <div class="layui-tab-item" style="">
+				        <table class="layui-hide" id="LAY_myCollectioncard">
+				        </table>
+				        <div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-4"
+				        lay-id="LAY_myCollectioncard" style=" ">
+				            <div class="layui-table-box">
+				                <div class="layui-table-header">
+				                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table"
+				                    lay-skin="line">
+				                        <thead>
+				                            <tr>
+				                                <th data-field="title" data-key="4-0-0" data-minwidth="300" class="">
+				                                    <div class="layui-table-cell laytable-cell-4-0-0">
+				                                        <span>
+				                                            帖子标题
+				                                        </span>
+				                                    </div>
+				                                </th>
+				                                <th data-field="collection_timestamp" data-key="4-0-1" class="">
+				                                    <div class="layui-table-cell laytable-cell-4-0-1" align="center">
+				                                        <span>
+				                                            收藏时间
+				                                        </span>
+				                                    </div>
+				                                </th>
+				                            </tr>
+				                        </thead>
+				                    </table>
+				                </div>
+				                <div class="layui-table-body layui-table-main">
+				                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table"
+				                    lay-skin="line">
+				                        <tbody>
+				                        </tbody>
+				                    </table>
+				                    <div class="layui-none">
+				                        无数据
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="layui-table-page layui-hide">
+				                <div id="layui-table-page4">
+				                </div>
+				            </div>
+				            <style>
+				                .laytable-cell-4-0-0{ }.laytable-cell-4-0-1{ width: 120px; }
+				            </style>
+				        </div>
+				    </div>
+				</div>
+			</fx:if>
+          	
+<%--             <li>
+              <a class="jie-title" href="${pageContext.request.contextPath }/detail" target="_blank">基于 layui 的极简社区页面模版</a>
               <i>2017/3/14 上午8:30:00</i>
               <a class="mine-edit" href="/jie/edit/8116">编辑</a>
               <em>661阅/10答</em>
@@ -89,7 +230,7 @@
               <i>2017/3/14 上午8:30:00</i>
               <a class="mine-edit" href="/jie/edit/8116">编辑</a>
               <em>661阅/10答</em>
-            </li>
+            </li> --%>
           </ul>
           <div id="LAY_page"></div>
         </div>

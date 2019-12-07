@@ -13,4 +13,10 @@ public interface ArticleAddService {
 	List<Kiss> getkiss();
 //	增加文章
 	void publishAnArticle(Release release);
+//	查询后台“我发的帖子”
+	List<Release> postrelease(int id);
+//	后台查询用户文章条数
+	int getreleasecount(int id);
+//	查询后台文章信息
+	Release getsumcontext(int id);
 }

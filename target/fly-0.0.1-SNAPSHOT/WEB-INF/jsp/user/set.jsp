@@ -28,7 +28,7 @@
       </a>
     </li>
     <li class="layui-nav-item">
-      <a href="${pageContext.request.contextPath }/userindex">
+      <a href="${pageContext.request.contextPath }/index">
         <i class="layui-icon">&#xe612;</i>
         用户中心
       </a>
