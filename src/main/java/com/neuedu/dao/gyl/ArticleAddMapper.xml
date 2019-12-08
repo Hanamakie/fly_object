@@ -36,38 +36,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from fly_release r,fly_customer c where  r.user_id = c.id and c.id = #{value}
 	</select>
 	<!-- 获取文章信息 -->
-	<select id="getsumcontext" parameterType="int" resultType="release">
-		SELECT
-			r.id,
-			r.title,
-			r.content,
-			k.kiss_num,
-			r.fly_kiss_id,
-			c.avatar,
-			c.nick_name,
-			l.level_name,
-			s.special_column
-		FROM
-			fly_release r
-			JOIN fly_kiss k ON r.fly_kiss_id = k.id
-			JOIN fly_special_column s ON r.special_column_id = s.id
-			JOIN fly_customer c ON r.user_id = c.id
-			JOIN fly_level l ON c.vip_level_id = l.id 
-		WHERE
-			r.id = #{value} 
-			AND r.static = 0 
-		GROUP BY
-			r.id,
-			r.title,
-			r.content,
-			k.kiss_num,
-			r.fly_kiss_id,
-			c.avatar,
-			c.nick_name,
-			l.level_name,
-			s.special_column
-			LIMIT 1
-	</select>
+		<select id="getsumcontext" parameterType="int" resultMap="gc">
+			SELECT
+				r.id,
+				r.title,
+				r.content,
+				k.kiss_num,
+				r.fly_kiss_id,
+				c.avatar,
+				c.nick_name,
+				l.id,
+				l.level_name,
+				s.id,
+				s.special_column
+			FROM
+				fly_release r
+				JOIN fly_kiss k ON r.fly_kiss_id = k.id
+				JOIN fly_special_column s ON r.special_column_id = s.id
+				JOIN fly_customer c ON r.user_id = c.id
+				JOIN fly_level l ON c.vip_level_id = l.id 
+			WHERE
+				r.id = #{value} 
+				AND r.static = 0 
+			GROUP BY
+				r.id,
+				r.title,
+				r.content,
+				k.kiss_num,
+				r.fly_kiss_id,
+				c.avatar,
+				c.nick_name,
+				l.level_name,
+				s.special_column
+				LIMIT 1
+		</select>
+		<resultMap type="customer" id="gc">
+			<result column="vip_level" property="vip_level"/>
+			<result column="avatar" property="avatar"/>
+			<collection property="list" javaType="list" ofType="kiss">
+				<result column="kiss_num" property="kiss_num"/>
+				<collection property="list" javaType="list" ofType="level">
+					<result column="id" property="id"/>
+					<result column="level_name" property="level_name"/>
+						<collection property="list" javaType="list" ofType="special">
+							<result column="id" property="id"/>
+							<result column="special_column" property="special_column"/>
+						</collection>
+				</collection>
+			</collection>
+		</resultMap>
 </mapper>
 
 
