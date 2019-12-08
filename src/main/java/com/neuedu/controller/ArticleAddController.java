@@ -50,7 +50,7 @@ public class ArticleAddController {
 	* @author		GaoYunLong
 	* @date		 	2019-12-1
 	* @version      V1.0.0
-	* @description  文章添加控制器
+	* @description  文章添加控制器 
 	**********************************************************************/
 	@RequestMapping(value="publishAnArticle")
 	public ModelAndView publishAnArticle(HttpServletRequest request,HttpSession session,Release release,Customer customer) {
