@@ -183,6 +183,7 @@ public class IndexController {
 	public ModelAndView detail(@PathVariable("id") int id,Release release){
 		ModelAndView mv = new ModelAndView();
 		Release sumcontext = articleaddservice.getsumcontext(id);
+		System.out.println("文章信息"+JSON.toJSONString(sumcontext));
 		mv.addObject("sumcontext", sumcontext);
 		mv.setViewName("jie/detail");
 		return mv;

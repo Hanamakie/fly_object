@@ -37,11 +37,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 获取文章信息 -->
 	<select id="getsumcontext" parameterType="int" resultType="release">
-		select r.id,r.title,r.content,r.fly_kiss_id,k.kiss_num,r.view_count,s.special_column,r.create_time from
-		fly_release r,fly_customer c ,fly_special_column s, fly_kiss k 
-		where r.special_column_id = s.id and r.user_id = c.id and r.fly_kiss_id = k.id and r.static = 0 and  r.id = #{value} 
-		GROUP BY r.id,r.title,r.content,r.fly_kiss_id,r.view_count,s.special_column,r.create_time
-		limit 1
+		SELECT
+			r.id,
+			r.title,
+			r.content,
+			k.kiss_num,
+			r.fly_kiss_id,
+			c.avatar,
+			c.nick_name,
+			l.level_name,
+			s.special_column
+		FROM
+			fly_release r
+			JOIN fly_kiss k ON r.fly_kiss_id = k.id
+			JOIN fly_special_column s ON r.special_column_id = s.id
+			JOIN fly_customer c ON r.user_id = c.id
+			JOIN fly_level l ON c.vip_level_id = l.id 
+		WHERE
+			r.id = #{value} 
+			AND r.static = 0 
+		GROUP BY
+			r.id,
+			r.title,
+			r.content,
+			k.kiss_num,
+			r.fly_kiss_id,
+			c.avatar,
+			c.nick_name,
+			l.level_name,
+			s.special_column
+			LIMIT 1
 	</select>
 </mapper>
 
