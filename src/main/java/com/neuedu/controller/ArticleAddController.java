@@ -58,7 +58,7 @@ public class ArticleAddController {
 //		获取用户id
 		Customer id = (Customer) session.getAttribute("customer2");
 		release.setUser_id(id.getId());
-//		获取文章分类
+//		获取文章分类 
 		String special_column = request.getParameter("special_column");
 		release.setSpecial_column_id(Integer.valueOf(special_column));
 //		获取标题
