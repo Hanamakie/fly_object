@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getsumcontext" parameterType="int" resultType="release">
 		select r.id,r.title,r.content,r.fly_kiss_id,k.kiss_num,r.view_count,s.special_column,r.create_time from
 		fly_release r,fly_customer c ,fly_special_column s, fly_kiss k 
-		where r.special_column_id = s.id and r.user_id = c.id and r.fly_kiss_id = k.id and r.static = 0 and  r.id = 27 
+		where r.special_column_id = s.id and r.user_id = c.id and r.fly_kiss_id = k.id and r.static = 0 and  r.id = #{value} 
 		GROUP BY r.id,r.title,r.content,r.fly_kiss_id,r.view_count,s.special_column,r.create_time
 		limit 1
 	</select>
