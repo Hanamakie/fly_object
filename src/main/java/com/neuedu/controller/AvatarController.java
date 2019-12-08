@@ -33,7 +33,7 @@ public class AvatarController {
 	@RequestMapping(value="set/avatar")
 //	@InitBinder
 	public ModelAndView avatar(MultipartFile avatar,HttpServletRequest request,HttpSession session) {
-//		时间转换，防止上传头像时因data转换问题而包异常 ：根据需求增加
+//		时间转换，防止上传头像时因data转换问题而包异常 ：根据需求增加。
 //		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));,WebDataBinder binder
 		Customer customer2 = null;
 		customer2 = (Customer) session.getAttribute("customer2");
