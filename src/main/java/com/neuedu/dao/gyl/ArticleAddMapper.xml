@@ -70,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				s.special_column
 				LIMIT 1
 		</select>
-		<resultMap type="customer" id="gc">
+		<resultMap type="customer" id="gc"> 
 			<result column="vip_level" property="vip_level"/>
 			<result column="avatar" property="avatar"/>
 			<collection property="kiss" javaType="kiss" ofType="kiss">
