@@ -41,6 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				r.id,
 				r.title,
 				r.content,
+				k.id,
 				k.kiss_num,
 				r.fly_kiss_id,
 				c.avatar,
@@ -70,21 +71,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				s.special_column
 				LIMIT 1
 		</select>
-		<resultMap type="customer" id="gc">
-			<result column="vip_level" property="vip_level"/>
-			<result column="avatar" property="avatar"/>
-			<collection property="kiss" javaType="kiss" ofType="kiss">
+		<!--  -->
+		<resultMap type="release" id="gc">
+			<result column="id" property="id"/>
+			<result column="title" property="title"/>
+			<result column="content" property="content"/>
+			<result column="fly_kiss_id" property="fly_kiss_id"/>
+			<collection property="customer" javaType="list" ofType="customer">
+				<result column="avatar" property="avatar"/>
+				<result column="nick_name" property="nick_name"/>
+			</collection>
+			<collection property="level" javaType="list" ofType="level">
+				<result column="id" property="id"/>
+				<result column="level_name" property="level_name"/>
+			</collection>
+			<collection property="special" javaType="list" ofType="special">
+				<result column="id" property="id"/>
+				<result column="special_column" property="special_column"/>
+			</collection>
+			<collection property="kiss" javaType="list" ofType="kiss">
+				<result column="id" property="id"/>
 				<result column="kiss_num" property="kiss_num"/>
-				<collection property="level" javaType="level" ofType="level">
-					<result column="id" property="id"/>
-					<result column="level_name" property="level_name"/>
-						<collection property="special" javaType="special" ofType="special">
-							<result column="id" property="id"/>
-							<result column="special_column" property="special_column"/>
-						</collection>
-				</collection>
 			</collection>
 		</resultMap>
 </mapper>
+
+
 
 
