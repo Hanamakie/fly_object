@@ -73,12 +73,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<resultMap type="customer" id="gc">
 			<result column="vip_level" property="vip_level"/>
 			<result column="avatar" property="avatar"/>
-			<collection property="list" javaType="list" ofType="kiss">
+			<collection property="kiss" javaType="kiss" ofType="kiss">
 				<result column="kiss_num" property="kiss_num"/>
-				<collection property="list" javaType="list" ofType="level">
+				<collection property="level" javaType="level" ofType="level">
 					<result column="id" property="id"/>
 					<result column="level_name" property="level_name"/>
-						<collection property="list" javaType="list" ofType="special">
+						<collection property="special" javaType="special" ofType="special">
 							<result column="id" property="id"/>
 							<result column="special_column" property="special_column"/>
 						</collection>
