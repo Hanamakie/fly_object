@@ -181,7 +181,6 @@ public class IndexController {
 	**********************************************************************/
 	@RequestMapping(value="detail/{id}")
 	public ModelAndView detail(@PathVariable("id") int id,Release release){
-		System.out.println("查看");
 		ModelAndView mv = new ModelAndView();
 		Release sumcontext = articleaddservice.getsumcontext(id);
 		System.out.println("文章信息"+JSON.toJSONString(sumcontext));
@@ -199,7 +198,6 @@ public class IndexController {
 	**********************************************************************/
 	@RequestMapping(value="edit/{id}")
 	public ModelAndView edit(@PathVariable("id") int id,HttpSession session){
-		System.out.println("编辑");
 		ModelAndView mv = new ModelAndView();
 		Release sumcontext = articleaddservice.getsumcontext(id);
 		List<Special> special_column = articleaddservice.getspecial();
