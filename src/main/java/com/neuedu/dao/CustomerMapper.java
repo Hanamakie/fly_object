@@ -25,4 +25,6 @@ public interface CustomerMapper {
 	/*更新用户密码*/
 	
 	void changepass(Customer customer);
+	
+	
 }

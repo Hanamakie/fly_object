@@ -1,5 +1,8 @@
 package com.neuedu.domain;
 
+import java.util.Date;
+
+import com.neuedu.util.DateUtil;
 
 public class Customer {
 	private int id;
@@ -9,10 +12,26 @@ public class Customer {
 	private String email;
 	private int status;
 	private int vip_level;
+	private Date add_time;
 	// 头像
 	private String avatar;
 	private Level level;
 	private Release release;
+	private String signature;
+	
+	
+	public String getAdd_time() {
+		return DateUtil.getDateString(add_time);
+	}
+	public void setAdd_time(Date add_time) {
+		this.add_time = add_time;
+	}
+	public String getSignature() {
+		return signature;
+	}
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
 	public Release getRelease() {
 		return release;
 	}
@@ -76,7 +95,7 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", username=" + username + ", password=" + password + ", nick_name=" + nick_name
-				+ ", email=" + email + ", status=" + status + ", vip_level=" + vip_level + ", avatar=" + avatar + "]";
+				+ ", email=" + email + ", status=" + status + ", vip_level=" + vip_level + ", add_time=" + add_time
+				+ ", avatar=" + avatar + ", level=" + level + ", release=" + release + ", signature=" + signature + "]";
 	}
-
 }

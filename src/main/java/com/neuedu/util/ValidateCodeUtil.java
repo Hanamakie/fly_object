@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 
 public class ValidateCodeUtil {
 	static Random ran = new Random();
@@ -19,7 +20,7 @@ public class ValidateCodeUtil {
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
 	 */
-	public static String getNewCode(OutputStream out) throws FileNotFoundException, IOException{
+	public static String getNewCode(OutputStream out,HttpSession session) throws FileNotFoundException, IOException{
 		int width = 120;
 		int height = 50;
 		//在内存中制作一张图片
@@ -53,6 +54,7 @@ public class ValidateCodeUtil {
 		}
 		//把图片写到硬盘
 		ImageIO.write(image, "png", out);
+		session.setAttribute("number", number);
 		return number;
 	}
 	private static Color getRandomColor() {
@@ -63,6 +65,4 @@ public class ValidateCodeUtil {
 		Color color = new Color(r,g,b);
 		return color;
 	}
-	
-
 }

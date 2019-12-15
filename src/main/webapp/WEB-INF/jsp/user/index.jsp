@@ -74,7 +74,7 @@
           	    <fx:forEach items="${release}" var="release">
 	          		<li>
 		              <a class="jie-title" href="${pageContext.request.contextPath }/detail/${release.id}" target="_blank" title="${release.title}">${release.title}</a>
-		              <i>${release.create_time }</i>
+		              <i>${create_time }</i>
 		              <a class="mine-edit" href="${pageContext.request.contextPath }/edit/${release.id}" target="_blank" title="点击编辑">编辑</a>
 		              <em>${release.view_count }</em>
 		            </li>
@@ -212,25 +212,11 @@
 				    </div>
 				</div>
 			</fx:if>
-          	
-<%--             <li>
-              <a class="jie-title" href="${pageContext.request.contextPath }/detail" target="_blank">基于 layui 的极简社区页面模版</a>
-              <i>2017/3/14 上午8:30:00</i>
-              <a class="mine-edit" href="/jie/edit/8116">编辑</a>
-              <em>661阅/10答</em>
-            </li>
-            <li>
-              <a class="jie-title" href="../jie/detail.html" target="_blank">基于 layui 的极简社区页面模版</a>
-              <i>2017/3/14 上午8:30:00</i>
-              <a class="mine-edit" href="/jie/edit/8116">编辑</a>
-              <em>661阅/10答</em>
-            </li>
-            <li>
-              <a class="jie-title" href="../jie/detail.html" target="_blank">基于 layui 的极简社区页面模版</a>
-              <i>2017/3/14 上午8:30:00</i>
-              <a class="mine-edit" href="/jie/edit/8116">编辑</a>
-              <em>661阅/10答</em>
-            </li> --%>
+          	<!-- 分页Start -->
+          	<div>
+				<div id="test1"></div>
+			</div>
+          	<!-- 分页End -->
           </ul>
           <div id="LAY_page"></div>
         </div>
@@ -257,6 +243,7 @@
 </div>
 
 <script src="${pageContext.request.contextPath }/res/layui/layui.js"></script>
+<%-- <script src="${pageContext.request.contextPath }/res/js/layer.js" charset="utf-8"></script> --%>
 <script>
 layui.cache.page = 'user';
 layui.cache.user = {
@@ -273,6 +260,48 @@ layui.config({
   fly: 'index'
 }).use('fly');
 </script>
+<!-- 分页模板End -->
+<script>
+function getpostlist(str,index,size){
+	$(".selectcondition").removeClass("layui-this");
+	$("#"+str).attr("class","selectcondition layui-this");
+	$.ajax({
+		url:"${pageContext.request.contextPath}/postServlet?action=getpostlist&selectcondition="+str+"&index="+index+"&size="+size,
+		type:"get",
+		data:{
+			
+		},
+		success:function(result){
+			var list = JSON.parse(result);
+			/* {
+				list2:[]
+			} */
+			var inner = template("temp",list);
+			//alert(inner);
+			
+			$("#list").html(inner);
+			
+		}
+	});
+}
 
+	$(function(){
+		//getpostlist("newpost");
+		layui.use('laypage', function(){
+			  var laypage = layui.laypage;
+			  
+			  //执行一个laypage实例
+			  laypage.render({
+			    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+			    ,count: 8 //数据总数，从服务端得到
+			    ,limit:2
+			    ,jump:function(object){
+			    	getpostlist("newpost",object.curr,object.limit);
+			    }
+			  });
+		}); 
+		
+	});
+</script>
 </body>
 </html>

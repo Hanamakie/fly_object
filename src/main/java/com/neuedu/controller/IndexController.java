@@ -1,5 +1,7 @@
 package com.neuedu.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
+
 import com.neuedu.domain.Customer;
 import com.neuedu.domain.Kiss;
 import com.neuedu.domain.Release;
@@ -23,7 +24,7 @@ import com.neuedu.service.CustomerService;
 import com.neuedu.service.gyl.ArticleAddService;
 
 @Controller
-@SessionAttributes("customer2")
+@SessionAttributes(value= {"customer2","user"})
 public class IndexController {
 	@Autowired
 	CustomerService customerservice;
@@ -52,7 +53,7 @@ public class IndexController {
 	* @description  登陆页面控制器
 	**********************************************************************/
 	@RequestMapping(value="login")
-	public ModelAndView login(){
+	public ModelAndView login(HttpSession session){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/login");
 		return mv;
@@ -66,18 +67,19 @@ public class IndexController {
 	* @description  登陆页面控制器
 	**********************************************************************/
 	@RequestMapping(value="loginin")
-	@ResponseBody
 	public String loginin(Customer customer,HttpSession session){
-		Customer customer2 = new Customer();
-		customer2 = customerservice.getCustomer(customer);
-		String s="";
+		Customer customer2  = customerservice.getCustomer(customer);
 		if(customer != null){
-			s="success";
-			session.setAttribute("customer2", customer2);
+			if(customer.getEmail().equals(customer2.getEmail()) && customer2.getPassword().equals(customer2.getPassword()) ) {
+				System.out.println("1"+customer2);
+				session.setAttribute("customer2", customer2);
+				return "redirect:/index";
+			}else {
+				return "redirect:/login";
+			}
 		}else{
-			s="error";
+			return "redirect:/login";
 		}
-		return JSON.toJSONString(s);
 	}
 	/**********************************************************************
 	*
@@ -105,8 +107,17 @@ public class IndexController {
 	public ModelAndView userindex(Customer customer,HttpSession session){
 		ModelAndView mv = new ModelAndView();
 		Customer id = (Customer) session.getAttribute("customer2");
+		System.out.println("阿萨德很快就爱上"+id);
 		List<Release> release= articleaddservice.postrelease(id.getId());
 		int count = articleaddservice.getreleasecount(id.getId());
+		for(Release x:release) {
+	        Date time = new Date(x.getCreate_time());
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        String create_time = sdf.format(time);
+			mv.addObject("create_time", create_time);
+		}
+		Customer user = articleaddservice.user(id.getId());
+        session.setAttribute("user", user);
 		mv.addObject("release", release);
 		mv.addObject("count", count);
 		mv.setViewName("user/index");
@@ -121,8 +132,17 @@ public class IndexController {
 	* @description  我的主页控制器
 	**********************************************************************/
 	@RequestMapping(value="home")
-	public ModelAndView home(){
+	public ModelAndView home(HttpSession session){
 		ModelAndView mv = new ModelAndView();
+		Customer id = (Customer) session.getAttribute("customer2");
+		List<Release> homecount= articleaddservice.posthomecount(id.getId());
+		Customer user = articleaddservice.user(id.getId());
+        Date time =new Date(user.getAdd_time());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String timeFormat = sdf.format(time);
+        session.setAttribute("user", user);
+		mv.addObject("timeFormat", timeFormat);
+		mv.addObject("homecount", homecount);
 		mv.setViewName("user/home");
 		return mv;
 	}
@@ -180,10 +200,13 @@ public class IndexController {
 	* @description  后台帖子控制器
 	**********************************************************************/
 	@RequestMapping(value="detail/{id}")
-	public ModelAndView detail(@PathVariable("id") int id,Release release){
+	public ModelAndView detail(@PathVariable("id") int id){
 		ModelAndView mv = new ModelAndView();
 		Release sumcontext = articleaddservice.getsumcontext(id);
-		System.out.println("文章信息"+JSON.toJSONString(sumcontext));
+        Date time = new Date(sumcontext.getCreate_time());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String create_time = sdf.format(time);
+        mv.addObject("create_time", create_time);
 		mv.addObject("sumcontext", sumcontext);
 		mv.setViewName("jie/detail");
 		return mv;
@@ -202,10 +225,61 @@ public class IndexController {
 		Release sumcontext = articleaddservice.getsumcontext(id);
 		List<Special> special_column = articleaddservice.getspecial();
 		List<Kiss> kiss = articleaddservice.getkiss();
-		session.setAttribute("special_column",special_column);
-		session.setAttribute("kiss", kiss);
+		mv.addObject("kiss", kiss);
 		mv.addObject("sumcontext", sumcontext);
+		mv.addObject("special_column", special_column);
 		mv.setViewName("jie/edit");
+		return mv;
+	}
+	/**********************************************************************
+	*
+	* @fileName     IndexController.java
+	* @author		GaoYunLong
+	* @date		 	2019-12-11
+	* @version      V1.0.0
+	* @description 	后台用户更新编辑帖子控制器
+	**********************************************************************/
+	@RequestMapping(value="updatenovel/{id}")
+	public ModelAndView updatenovel(@PathVariable("id") int id,HttpSession session,HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		Release release = new Release();
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		int special_column_id = Integer.parseInt(request.getParameter("special_column")); 
+		release.setId(id);
+		release.setTitle(title);
+		release.setContent(content);
+		release.setSpecial_column_id(special_column_id);
+		articleaddservice.updatecontent(release);
+//		数据回显
+		Release sumcontext = articleaddservice.getsumcontext(id);
+		List<Special> special_column = articleaddservice.getspecial();
+		List<Kiss> kiss = articleaddservice.getkiss();
+		mv.addObject("kiss", kiss);
+		mv.addObject("sumcontext", sumcontext);
+		mv.addObject("special_column", special_column);
+		mv.setViewName("jie/edit");
+		return mv;
+	}
+	/**********************************************************************
+	*
+	* @fileName     IndexController.java
+	* @author		GaoYunLong
+	* @date		 	2019-12-07
+	* @version      V1.0.0
+	* @description 	后台用户编辑帖子控制器
+	**********************************************************************/
+	@RequestMapping(value="del/{id}")
+	public ModelAndView del(@PathVariable("id") int id,HttpSession session){
+		ModelAndView mv = new ModelAndView();
+		articleaddservice.delcontent(id);
+//		数据回显
+		Customer id_id = (Customer) session.getAttribute("customer2");
+		List<Release> release= articleaddservice.postrelease(id_id.getId());
+		int count = articleaddservice.getreleasecount(id_id.getId());
+		mv.addObject("release", release);
+		mv.addObject("count", count);
+		mv.setViewName("user/index");
 		return mv;
 	}
 }

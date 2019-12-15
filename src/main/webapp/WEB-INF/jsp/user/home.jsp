@@ -20,13 +20,19 @@
 <%@include file="../common/header.jsp" %>
 
 <div class="fly-home fly-panel" style="background-image: url();">
-  <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
+  <!-- <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心"> -->
+  	   <fx:if test="${imgpath == ''|| imgpath == null}">
+	       <img src="${pageContext.request.contextPath}/res/avatar/${customer2.avatar}">
+	   </fx:if>
+	   <fx:if test="${imgpath == customer2.avatar}">
+	       <img src="${pageContext.request.contextPath}/res/avatar/${imgpath}">
+	  </fx:if>
   <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
   <h1>
     ${customer2.nick_name }
     <i class="iconfont icon-nan"></i>
     <!-- <i class="iconfont icon-nv"></i>  -->
-    <i class="layui-badge fly-badge-vip">${customer2.vip_level }</i>
+    <i class="layui-badge fly-badge-vip">${user.level.level_name}</i>
     <!--
     <span style="color:#c00;">（管理员）</span>
     <span style="color:#5FB878;">（社区之光）</span>
@@ -38,16 +44,16 @@
 
   <p class="fly-home-info">
     <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">66666 飞吻</span>
-    <i class="iconfont icon-shijian"></i><span>2015-6-17 加入</span>
+    <i class="iconfont icon-shijian"></i><span>${timeFormat }</span>
     <i class="iconfont icon-chengshi"></i><span>来自杭州</span>
   </p>
 
-  <p class="fly-home-sign">（人生仿若一场修行）</p>
+  <p class="fly-home-sign" title="${user.signature }">（ ${user.signature }）</p>
 
-  <div class="fly-sns" data-user="">
+<!--   <div class="fly-sns" data-user="">
     <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">加为好友</a>
     <a href="javascript:;" class="layui-btn layui-btn-normal fly-imActive" data-type="chat">发起会话</a>
-  </div>
+  </div> -->
 
 </div>
 
@@ -55,44 +61,16 @@
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md6 fly-home-jie">
       <div class="fly-panel">
-        <h3 class="fly-panel-title">贤心 最近的提问</h3>
+        <h3 class="fly-panel-title">${customer2.nick_name } 最近的提问</h3>
         <ul class="jie-row">
-          <li>
-            <span class="fly-jing">精</span>
-            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-            <i>刚刚</i>
-            <em class="layui-hide-xs">1136阅/27答</em>
-          </li>
-          <li>
-            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-            <i>1天前</i>
-            <em class="layui-hide-xs">1136阅/27答</em>
-          </li>
-          <li>
-            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-            <i>2017-10-30</i>
-            <em class="layui-hide-xs">1136阅/27答</em>
-          </li>
-          <li>
-            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-            <i>1天前</i>
-            <em class="layui-hide-xs">1136阅/27答</em>
-          </li>
-          <li>
-            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-            <i>1天前</i>
-            <em class="layui-hide-xs">1136阅/27答</em>
-          </li>
-          <li>
-            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-            <i>1天前</i>
-            <em class="layui-hide-xs">1136阅/27答</em>
-          </li>
-          <li>
-            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-            <i>1天前</i>
-            <em class="layui-hide-xs">1136阅/27答</em>
-          </li>
+      	  <fx:forEach items="${homecount}" var="release">
+	          <li>
+	            <!-- <span class="fly-jing">精</span> -->
+	            <a href="${pageContext.request.contextPath }/detail/${release.id}" class="jie-title" title="${release.title}">${release.title}</a>
+	            <i>刚刚</i>
+	            <em class="layui-hide-xs">${release.view_count }阅/27答</em>
+	          </li>
+	      </fx:forEach>
           <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何求解</i></div> -->
         </ul>
       </div>
@@ -100,7 +78,7 @@
     
     <div class="layui-col-md6 fly-home-da">
       <div class="fly-panel">
-        <h3 class="fly-panel-title">贤心 最近的回答</h3>
+        <h3 class="fly-panel-title">${customer2.nick_name }  最近的回答</h3>
         <ul class="home-jieda">
           <li>
           <p>

@@ -7,6 +7,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 注意：使用mapper代理方法开发，namespace有特殊重要的作用
 -->
 <mapper namespace="com.neuedu.dao.gyl.ArticleAddMapper">
+	<!-- 查询登陆后用户表下该用户所有信息 -->
+	<select id="user" parameterType="int" resultMap="UserInfo">
+		SELECT
+			c.id,
+			c.username,
+			c.nick_name,
+			c.email,
+			l.id,
+			l.level_name,
+			c.add_time,
+			c.avatar,
+			c.signature 
+		FROM
+			fly_customer c,
+			fly_level l 
+		WHERE
+			c.vip_level_id = l.id 
+			AND c.id = #{value} 
+		GROUP BY
+			c.id,
+			c.username,
+			c.nick_name,
+			c.email,
+			l.id,
+			l.level_name,
+			c.add_time,
+			c.avatar,
+			c.signature
+			limit 1
+	</select>
+		<resultMap type="customer" id="UserInfo">
+			<result column="id" property="id"/>
+			<result column="username" property="username"/>
+			<result column="nick_name" property="nick_name"/>
+			<result column="email" property="email"/>
+			<result column="add_time" property="add_time"/>
+			<result column="avatar" property="avatar"/>
+			<result column="signature" property="signature"/>
+			<collection property="level" javaType="level" ofType="level">
+				<result column="id" property="id"/>
+				<result column="level_name" property="level_name"/>
+			</collection>
+		</resultMap>
 	<!-- 文章分类查询 -->
 	<select id="getspecial" parameterType="special" resultType="special">
 		select * from fly_special_column
@@ -18,18 +61,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 新增文章 -->
 	<insert id="publishAnArticle" parameterType="release">
 		insert into fly_release 
-		(title,content,user_id,view_count,special_column_id,fly_kiss_id) 
+		(title,content,user_id,view_count,special_column_id,fly_kiss_id)  
 		values (#{title},#{content},#{user_id},#{view_count},#{special_column_id},#{fly_kiss_id})
 	</insert>
 	<!-- 查询后台“我发的帖子” -->
 	<select id="postrelease" parameterType="int" resultType="release">
-		select 
-			r.id,r.title,r.view_count,r.create_time 
-		from 
-			fly_release r,fly_customer c 
-		<where>
-			r.user_id = c.id and c.id = #{value}
-		</where>
+		SELECT
+			r.id,
+			r.title,
+			r.view_count,
+			r.create_time 
+		FROM
+			fly_release r,
+			fly_customer c 
+		WHERE
+			r.user_id = c.id 
+			AND c.id = #{value} 
+			AND static = 0
 	</select>
 	<!-- 获取后台用户文章总条数 -->
 	<select id="getreleasecount" parameterType="int" resultType="int">
@@ -44,12 +92,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				k.id,
 				k.kiss_num,
 				r.fly_kiss_id,
+				r.special_column_id,
+				r.create_time,
 				c.avatar,
 				c.nick_name,
+				c.signature,
 				l.id,
 				l.level_name,
 				s.id,
-				s.special_column
+				s.special_column 
 			FROM
 				fly_release r
 				JOIN fly_kiss k ON r.fly_kiss_id = k.id
@@ -59,16 +110,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WHERE
 				r.id = #{value} 
 				AND r.static = 0 
+				AND r.special_column_id = s.id 
 			GROUP BY
 				r.id,
 				r.title,
 				r.content,
+				k.id,
 				k.kiss_num,
 				r.fly_kiss_id,
+				r.special_column_id,
+				r.create_time,
 				c.avatar,
 				c.nick_name,
+				c.signature,
+				l.id,
 				l.level_name,
-				s.special_column
+				s.id,
+				s.special_column 
 				LIMIT 1
 		</select>
 		<!--  -->
@@ -77,23 +135,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<result column="title" property="title"/>
 			<result column="content" property="content"/>
 			<result column="fly_kiss_id" property="fly_kiss_id"/>
-			<collection property="customer" javaType="list" ofType="customer">
+			<result column="special_column_id" property="special_column_id"/>
+			<result column="create_time" property="create_time"/>
+			<collection property="customer" javaType="customer" ofType="customer">
 				<result column="avatar" property="avatar"/>
 				<result column="nick_name" property="nick_name"/>
+				<result column="signature" property="signature"/>
 			</collection>
-			<collection property="level" javaType="list" ofType="level">
+			<collection property="level" javaType="level" ofType="level">
 				<result column="id" property="id"/>
 				<result column="level_name" property="level_name"/>
 			</collection>
-			<collection property="special" javaType="list" ofType="special">
+			<collection property="special" javaType="special" ofType="special">
 				<result column="id" property="id"/>
 				<result column="special_column" property="special_column"/>
 			</collection>
-			<collection property="kiss" javaType="list" ofType="kiss">
+			<collection property="kiss" javaType="kiss" ofType="kiss">
 				<result column="id" property="id"/>
 				<result column="kiss_num" property="kiss_num"/>
 			</collection>
 		</resultMap>
+		<!-- 更新后台文章 -->
+		<update id="updatecontent" parameterType="release">
+			UPDATE fly_release 
+			SET title = #{title},
+			content = #{content},
+			special_column_id = #{special_column_id}
+			WHERE
+				id = #{id}
+		</update>
+		<!-- 删除文章 -->
+		<update id="delcontent" parameterType="int">
+			UPDATE fly_release 
+			SET static = 1 
+			WHERE
+				id = #{value}
+		</update>
+			<!-- 查询后台“我发的帖子” -->
+		<select id="posthomecount" parameterType="int" resultType="release">
+			select 
+				r.id,r.title,r.view_count,r.create_time 
+			from 
+				fly_release r,fly_customer c 
+			<where>
+				r.user_id = c.id and c.id = #{value} and static = 0 
+			</where>
+			LIMIT 12
+		</select>
+		<!-- 每次查看帖子的时候阅读数+1(查看自己帖子不累计，该功能只用于前台使用) -->
+		<update id="">
+			UPDATE fly_release 
+				SET view_count = view_count + 1 
+			WHERE
+				id = #{value}
+		</update>
 </mapper>
 
 

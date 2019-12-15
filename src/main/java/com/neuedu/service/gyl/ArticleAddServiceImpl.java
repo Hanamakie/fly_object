@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.neuedu.dao.gyl.ArticleAddMapper;
+import com.neuedu.domain.Customer;
 import com.neuedu.domain.Kiss;
 import com.neuedu.domain.Release;
 import com.neuedu.domain.Special;
@@ -36,6 +37,22 @@ public class ArticleAddServiceImpl implements ArticleAddService{
 	public Release getsumcontext(int id) {
 		// TODO Auto-generated method stub
 		return articleAddMapper.getsumcontext(id);
+	}
+	public void updatecontent(Release release) {
+		// TODO Auto-generated method stub
+		articleAddMapper.updatecontent(release);
+	}
+	public void delcontent(int id) {
+		// TODO Auto-generated method stub
+		articleAddMapper.delcontent(id);
+	}
+	public List<Release> posthomecount(int id) {
+		// TODO Auto-generated method stub
+		return articleAddMapper.posthomecount(id);
+	}
+	public Customer user(int id) {
+		// TODO Auto-generated method stub
+		return articleAddMapper.user(id);
 	}
 
 
