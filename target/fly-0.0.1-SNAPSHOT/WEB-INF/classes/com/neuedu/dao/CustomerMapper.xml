@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.neuedu.dao.CustomerMapper">
 	<!-- 登陆，通过账号和密码或者邮箱和密码查询用户  常恩瀛-->
 	<select id="getCustomer" parameterType="customer" resultType="customer">
-		select c.id,c.username,c.password,c.nick_name,c.email,c.status,c.vip_level_id,c.avatar from fly_customer c,fly_level l 
+ 		select c.id,c.username,c.password,c.nick_name,c.email,c.status,c.vip_level_id,c.avatar from fly_customer c,fly_level l 
 		<where>
 			c.vip_level_id=l.id
 			<if test="username !=null">
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and password=#{password}
 			</if>
 			and status = 1
-		</where>
+		</where> 
 	</select>
 	
 	<!-- 注册功能：添加用户  闫宏铭-->

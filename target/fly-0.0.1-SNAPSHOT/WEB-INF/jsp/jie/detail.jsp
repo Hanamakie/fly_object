@@ -23,6 +23,7 @@
       <div class="fly-panel detail-box">
         <h1>${sumcontext.title }</h1>
         <div class="fly-detail-info">
+        	<input type="hidden" value="${sumcontext.id}" id="num">
           <!-- <span class="layui-badge">审核中</span> -->
           <span class="layui-badge layui-bg-green fly-detail-column">动态</span>
           
@@ -33,7 +34,8 @@
           <span class="layui-badge layui-bg-red">精帖</span>
           
           <div class="fly-admin-box" data-id="123">
-            <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
+            <!-- <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span> -->
+            <a class="layui-btn layui-btn-xs" href="${pageContext.request.contextPath }/del/${sumcontext.id}" onClick="return confirm('确认删除该求解么？');">删除</a>
             
             <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span> 
             <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span> -->
@@ -43,29 +45,29 @@
           </div>
           <span class="fly-list-nums"> 
             <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>
-            <i class="iconfont" title="人气">&#xe60b;</i> ${sumcontext.view_count }
+            <i class="iconfont" title="人气">&#xe60b;</i> 
           </span>
         </div>
         <div class="detail-about">
           <a class="fly-avatar" href="${pageContext.request.contextPath}/user/home">
-            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
+            <img src="${pageContext.request.contextPath}/res/avatar/${sumcontext.customer.avatar}" title="${sumcontext.customer.signature}">
           </a>
           <div class="fly-detail-user">
             <a href="${pageContext.request.contextPath}/user/home" class="fly-link">
-              <cite>贤心</cite>
-              <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
-              <i class="layui-badge fly-badge-vip">VIP3</i>
+              <cite>${sumcontext.customer.nick_name}</cite>
+              <i class="iconfont icon-renzheng" ></i><!-- title="认证信息：{{ rows.user.approve }}" -->
+              <i class="layui-badge fly-badge-vip" title="${sumcontext.level.level_name}">${sumcontext.level.level_name}</i>
             </a>
-            <span>2017-11-30</span>
+            <span>${create_time }</span>
           </div>
           <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
-            <span style="padding-right: 10px; color: #FF7200">悬赏：60飞吻</span>  
-            <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="add.html">编辑此贴</a></span>
+            <span style="padding-right: 10px; color: #FF7200">悬赏：${sumcontext.kiss.kiss_num}</span>  
+            <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="${pageContext.request.contextPath }/edit/${sumcontext.id}" target="_blank">编辑此贴</a></span>
           </div>
         </div>
         <div class="detail-body photos">
 		  <p>
-		  	${sumcontext.content }
+		  	${sumcontext.content}
 		  </p>
 <!--           <p>更新日志：</p>
 <pre>
@@ -300,6 +302,5 @@ layui.config({
   */
 });
 </script>
-
 </body>
 </html>

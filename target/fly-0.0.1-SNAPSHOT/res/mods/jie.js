@@ -3,7 +3,7 @@
  @Name: 求解板块
 
  */
- 
+
 layui.define('fly', function(exports){
 
   var $ = layui.jquery;
@@ -12,7 +12,7 @@ layui.define('fly', function(exports){
   var laytpl = layui.laytpl;
   var form = layui.form;
   var fly = layui.fly;
-  
+
   var gather = {}, dom = {
     jieda: $('#jieda')
     ,content: $('#L_content')
@@ -64,7 +64,7 @@ layui.define('fly', function(exports){
       required[0].value = '';
       dom.jieda.find('.fly-none').remove();
       dom.jieda.append(html);
-      
+
       var count = dom.jiedaCount.text()|0;
       dom.jiedaCount.html(++count);
     });
@@ -72,22 +72,27 @@ layui.define('fly', function(exports){
 
   //求解管理
   gather.jieAdmin = {
+	
     //删求解
     del: function(div){
+    var id = document.getElementById("num").value;
       layer.confirm('确认删除该求解么？', function(index){
         layer.close(index);
-        fly.json('/api/jie-delete/', {
+        fly.json("/del/"+id, {
           id: div.data('id')
-        }, function(res){
+        },openTabsPage = function(url){
+        	url:"${pageContext.request.contextPath}/index"
+        }
+        /* function(res){
           if(res.status === 0){
-            location.href = '/jie/';
+            location.href = '/index';
           } else {
             layer.msg(res.msg);
           }
-        });
+        }*/);
       });
     }
-    
+
     //设置置顶、状态
     ,set: function(div){
       var othis = $(this);
@@ -221,7 +226,7 @@ layui.define('fly', function(exports){
             layer.msg(res.msg);
           }
         });
-      });    
+      });
     }
   };
 

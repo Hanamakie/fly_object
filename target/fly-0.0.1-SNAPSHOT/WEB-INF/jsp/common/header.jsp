@@ -9,7 +9,7 @@
       <img src="${pageContext.request.contextPath }/res/images/logo.png" alt="layui">
     </a>
     <ul class="layui-nav fly-nav layui-hide-xs">
-      <li class="layui-nav-item layui-this">
+<%--       <li class="layui-nav-item layui-this">
         <a href="${pageContext.request.contextPath }/"><i class="iconfont icon-jiaoliu"></i>交流</a>
       </li>
       <li class="layui-nav-item">
@@ -17,7 +17,7 @@
       </li>
       <li class="layui-nav-item">
         <a href="http://www.layui.com/" target="_blank"><i class="iconfont icon-ui"></i>框架</a>
-      </li>
+      </li> --%>
     </ul>
     
     <ul class="layui-nav fly-nav-user">
@@ -46,7 +46,7 @@
 	        <a class="fly-nav-avatar" href="javascript:;">
 	          <cite class="layui-hide-xs">${customer2.nick_name}</cite>
 	          <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-	          <i class="layui-badge fly-badge-vip layui-hide-xs">VIP ${customer2.vip_level}</i>
+	          <i class="layui-badge fly-badge-vip layui-hide-xs">${user.level.level_name}</i>
 	             <!-- 头像 Start -->   
 	                <fx:if test="${imgpath == ''|| imgpath == null}">
 	                	<img src="${pageContext.request.contextPath}/res/avatar/${customer2.avatar}">

@@ -3,8 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fx" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,11 +27,11 @@
       <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
           <div class="layui-form layui-form-pane">
-            <form method="post">
+            <form method="post" action="${pageContext.request.contextPath }/loginin" onsubmit="return login()">
               <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">邮箱/账号</label>
+                <label for="L_email" class="layui-form-label">邮箱</label>
                 <div class="layui-input-inline">
-                  <input type="text" id="email_username" name="email_username" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input type="text" id="email" name="email" required lay-verify="required" autocomplete="off" class="layui-input" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
@@ -45,16 +43,20 @@
               <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">人类验证</label>
                 <div class="layui-input-inline">
-                  <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input">
+                  <input type="text" id="vercode" name="vercode" required lay-verify="required" autocomplete="off" class="layui-input" onblur="checkCode()">
                 </div>
-                <div class="layui-form-mid">
-                  <span style="color: #c00;">{{d.vercode}}</span>
+                <div class="layui- form-mid">
+                  <!-- <span style="color: #c00;">{{d.vercode}}</span> -->
+                  <span style="color: #c00;">
+                  	<img id="code" src="${pageContext.request.contextPath }/code" style="height: 38px" onclick="changecode()" />
+                  	<span id="inputcode"></span>
+                  </span>
                 </div>
               </div>
               <div class="layui-form-item">
                 <!-- <button class="layui-btn" lay-filter="*" lay-submit>立即登录</button> -->
-               	<button type="button" class="layui-btn" onclick="loginin()">立即登录</button>
-               	<!-- <input type="submit" value="立即登录" class="layui-btn"> -->
+               <!-- 	<button type="button" class="layui-btn">立即登录</button> -->
+               	 <input type="submit" value="立即登录" class="layui-btn">
                 <span style="padding-left:20px;">
                   <a href="forget.html">忘记密码？</a>
                 </span>
@@ -100,47 +102,39 @@ layui.config({
 </script>
 <script src="${pageContext.request.contextPath }/res/js/jquery-3.4.1.min.js"></script>
 <script>
-	function loginin(){
-		var email_username=$("#email_username").val();
-		var i= getlength(email_username);
-		var password=$("#password").val(); 
-		if(i != 1){
-			var email=email_username;
+	function changecode(){
+		var code = document.getElementById("code");
+		code.src = "${pageContext.request.contextPath }/code?"+Math.random(); 
+	}
+	function checkCode(){
+		var vercode = $("#vercode").val();
+		var inputcode = $("#inputcode");
+		var msg = "";
+		if(vercode != ""){
 			$.ajax({
-				url:"${pageContext.request.contextPath }/loginin",
+				url:"${pageContext.request.contextPath }/checkCode/"+vercode,
 				type:"post",
 				data:{
-					email:email,
-					password:password
 				},success:function(s){
-					if(s=="success"){
-						window.location.href = "${pageContext.request.contextPath }/index";
+					if(s == "check"){
+						msg = "√".fontcolor("green");
+					}else{
+						msg = "×".fontcolor("red");
 					}
-					if(s=="error"){
-					}
+					inputcode.html(msg);
 				}
 			});
 		}else{
-			var username=email_username;
-			$.ajax({
-				url:"${pageContext.request.contextPath }/loginin",
-				type:"post",
-				data:{
-					username:username,
-					password:password
-				},success:function(s){
-					
-					if(s=="success"){
-						window.location.href ="${pageContext.request.contextPath}/index";
-					}else if(s=="error"){
-					}
-				}
-			});
+			inputcode.html("验证码不允许为空！");
 		}
-	}  
-	function getlength(s){
-		var a= s.split("@").length;
-		return a;
+
+	}
+	function login(){
+		var vercode = $("#vercode").val();
+		var inputcode = $("#inputcode");
+		if(inputcode.text() != "√"){
+			return false;
+		}
 	}
 </script>
 </body>

@@ -4,6 +4,7 @@ R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\service\CustomerService.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\util\ValidateCodeUtil.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\service\gyl\ArticleAddServiceImpl.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\domain\Kiss.java
+R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\util\LoginInterceptor.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\controller\AvatarController.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\controller\ChangePasswordController.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\service\gyl\ArticleAddService.java
@@ -13,6 +14,7 @@ R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\controller\RegController.jav
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\domain\Customer.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\domain\Release.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\util\UUIDUtil.java
+R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\controller\VerificationCode.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\domain\Special.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\service\CustomerServiceImpl.java
 R:\Devdatas\fly\fly_object\src\main\java\com\neuedu\util\DateUtil.java
