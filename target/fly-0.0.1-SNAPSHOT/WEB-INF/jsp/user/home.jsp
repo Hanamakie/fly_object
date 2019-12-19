@@ -44,7 +44,7 @@
 
   <p class="fly-home-info">
     <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">66666 飞吻</span>
-    <i class="iconfont icon-shijian"></i><span>${timeFormat }</span>
+    <i class="iconfont icon-shijian"></i><span>${user_addtime }</span>
     <i class="iconfont icon-chengshi"></i><span>来自杭州</span>
   </p>
 
@@ -67,7 +67,7 @@
 	          <li>
 	            <!-- <span class="fly-jing">精</span> -->
 	            <a href="${pageContext.request.contextPath }/detail/${release.id}" class="jie-title" title="${release.title}">${release.title}</a>
-	            <i>刚刚</i>
+	            <i>${hometime}</i>
 	            <em class="layui-hide-xs">${release.view_count }阅/27答</em>
 	          </li>
 	      </fx:forEach>

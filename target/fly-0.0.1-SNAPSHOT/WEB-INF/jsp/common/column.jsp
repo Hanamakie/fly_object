@@ -17,8 +17,8 @@
       
       <!-- 用户登入后显示 -->
       <n:if test="${customer2 != null }">
-	      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发表的贴</a></li> 
-	      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html#collection">我收藏的贴</a></li>
+	      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.request.contextPath}/index">我发表的123贴</a></li> 
+	      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.request.contextPath}/index#collection">我收123藏的贴</a></li>
 	  </n:if>
     </ul> 
     

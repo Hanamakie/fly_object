@@ -24,7 +24,7 @@ import com.neuedu.service.CustomerService;
 import com.neuedu.service.gyl.ArticleAddService;
 
 @Controller
-@SessionAttributes(value= {"customer2","user"})
+@SessionAttributes(value= {"customer2","user","user_addtime"})
 public class IndexController {
 	@Autowired
 	CustomerService customerservice;
@@ -98,7 +98,7 @@ public class IndexController {
 	/**********************************************************************
 	*
 	* @fileName     IndexController.java
-	* @author		ChangEnYing
+	* @author		GaoYunLong
 	* @date		 	2019-11-25
 	* @version      V1.0.0
 	* @description  用户界面主页控制器
@@ -117,6 +117,11 @@ public class IndexController {
 			mv.addObject("create_time", create_time);
 		}
 		Customer user = articleaddservice.user(id.getId());
+        Date time =new Date(user.getAdd_time());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String user_addtime = sdf.format(time);
+        System.out.println("哈哈哈"+user_addtime);
+        session.setAttribute("user_addtime", user_addtime);
         session.setAttribute("user", user);
 		mv.addObject("release", release);
 		mv.addObject("count", count);
@@ -126,7 +131,7 @@ public class IndexController {
 	/**********************************************************************
 	*
 	* @fileName     IndexController.java
-	* @author		ChangEnYing
+	* @author		GaoYunLong
 	* @date		 	2019-11-25
 	* @version      V1.0.0
 	* @description  我的主页控制器
@@ -137,11 +142,13 @@ public class IndexController {
 		Customer id = (Customer) session.getAttribute("customer2");
 		List<Release> homecount= articleaddservice.posthomecount(id.getId());
 		Customer user = articleaddservice.user(id.getId());
-        Date time =new Date(user.getAdd_time());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String timeFormat = sdf.format(time);
+		for(Release x:homecount) {
+	        Date time =new Date(x.getCreate_time());
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        String hometime = sdf.format(time);
+	        mv.addObject("hometime", hometime);
+		}
         session.setAttribute("user", user);
-		mv.addObject("timeFormat", timeFormat);
 		mv.addObject("homecount", homecount);
 		mv.setViewName("user/home");
 		return mv;

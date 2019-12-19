@@ -173,14 +173,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</update>
 			<!-- 查询后台“我发的帖子” -->
 		<select id="posthomecount" parameterType="int" resultType="release">
-			select 
-				r.id,r.title,r.view_count,r.create_time 
-			from 
-				fly_release r,fly_customer c 
-			<where>
-				r.user_id = c.id and c.id = #{value} and static = 0 
-			</where>
-			LIMIT 12
+			SELECT
+				r.id,
+				r.title,
+				r.view_count,
+				r.create_time 
+			FROM
+				fly_release r,
+				fly_customer c 
+			WHERE
+				r.user_id = c.id 
+				AND c.id = 8 
+				AND static = 0 
+			ORDER BY
+				r.create_time DESC
+				LIMIT 12
 		</select>
 		<!-- 每次查看帖子的时候阅读数+1(查看自己帖子不累计，该功能只用于前台使用) -->
 		<update id="">

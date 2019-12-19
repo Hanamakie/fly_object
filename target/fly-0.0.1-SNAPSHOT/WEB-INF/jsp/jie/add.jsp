@@ -99,10 +99,14 @@
               <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">人类验证</label>
                 <div class="layui-input-inline">
-                  <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input">
+                  <input type="text" id="vercode" name="vercode" required lay-verify="required" autocomplete="off" class="layui-input" onblur="checkCode()">
                 </div>
-                <div class="layui-form-mid">
-                  <span style="color: #c00;">1+1=?</span>
+                <div class="layui- form-mid">
+                  <!-- <span style="color: #c00;">{{d.vercode}}</span> -->
+                  <span style="color: #c00;">
+                  	<img id="code" src="${pageContext.request.contextPath }/code" style="height: 38px" onclick="changecode()" />
+                  	<span id="inputcode"></span>
+                  </span>
                 </div>
               </div>
               <div class="layui-form-item">
@@ -174,5 +178,43 @@ layui.config({
 	}
 
 </script>
+<!-- 验证码 Start -->
+<script>
+	function changecode(){
+		var code = document.getElementById("code");
+		code.src = "${pageContext.request.contextPath }/code?"+Math.random(); 
+	}
+	function checkCode(){
+		var vercode = $("#vercode").val();
+		var inputcode = $("#inputcode");
+		var msg = "";
+		if(vercode != ""){
+			$.ajax({
+				url:"${pageContext.request.contextPath }/checkCode/"+vercode,
+				type:"post",
+				data:{
+				},success:function(s){
+					if(s == "check"){
+						msg = "√".fontcolor("green");
+					}else{
+						msg = "×".fontcolor("red");
+					}
+					inputcode.html(msg);
+				}
+			});
+		}else{
+			inputcode.html("验证码不允许为空！");
+		}
+	
+	}
+	function login(){
+		var vercode = $("#vercode").val();
+		var inputcode = $("#inputcode");
+		if(inputcode.text() != "√"){
+			return false;
+		}
+	}
+</script>
+<!-- 验证码 End -->
 </body>
 </html>
